@@ -20,8 +20,10 @@ const FooterLinkList = ({ title, links }: FooterLinkListProps) => <div>
 export const Footer = () => <FooterWrapper>
   <div className="container mx-auto px-4 py-8">
     <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-      <div>
-        <h2 className="text-lg font-semibold mb-4">Patient Portal</h2>
+      <div className="flex flex-col gap-3">
+        <h2 className="text-lg font-semibold">
+          <Link href="/">Patient Portal</Link>
+        </h2>
         <p className="text-sm text-gray-600">Manage your health with ease.</p>
       </div>
       <FooterLinkList title="Product" links={ROUTES.marketing.product} />

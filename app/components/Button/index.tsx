@@ -4,10 +4,14 @@ import { cn } from '@/lib/utils'
 import { baseStyles, variants, sizes } from './styles'
 import { LoadingWheel } from './components/LoadingWheel'
 
+export type ButtonVariant = 'primary' | 'secondary' | 'muted' | 'outline' | 'ghost' | 'danger'
+export type ButtonSize = 'sm' | 'md' | 'lg'
+
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
-  size?: 'sm' | 'md' | 'lg'
+  variant?: ButtonVariant
+  size?: ButtonSize
   isLoading?: boolean
+  fullWidth?: boolean
 }
 
 export const Button = ({
@@ -17,6 +21,7 @@ export const Button = ({
   size = 'md',
   isLoading = false,
   disabled = false,
+  fullWidth = false,
   ...props
 }: ButtonProps) => {
   const classNames = cn(
@@ -24,6 +29,7 @@ export const Button = ({
     variants[variant],
     sizes[size],
     isLoading && 'opacity-70 cursor-not-allowed',
+    fullWidth && 'w-full',
     className
   )
   

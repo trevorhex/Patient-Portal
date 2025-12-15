@@ -21,8 +21,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Mode',
-  description: 'A modern issue tracking application built with Next.js 15',
+  title: 'Patient Portal',
+  description: 'A secure and user-friendly patient portal for managing your healthcare needs.'
 }
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
