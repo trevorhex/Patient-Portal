@@ -26,12 +26,14 @@
     "nanoid": "^5.1.2",
     "next": "^15.2.0-canary.74",
     "pg": "^8.13.3",
+    "postcss": "^8.5.6",
     "postgres": "^3.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
     "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.1.18",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
   },
@@ -44,8 +46,6 @@
     "drizzle-kit": "^0.30.4",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.19",
     "tsx": "^4.7.1",
     "typescript": "^5"
   }
