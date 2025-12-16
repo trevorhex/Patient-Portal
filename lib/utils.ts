@@ -20,5 +20,3 @@ export const slugify = (text: string) => text
   .replace(/--+/g, '-')
   .replace(/^-+/, '')
   .replace(/-+$/, '')
-
-export const mockDelay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

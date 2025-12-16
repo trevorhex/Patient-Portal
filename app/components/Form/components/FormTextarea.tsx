@@ -10,6 +10,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
       ref={ref}
       className={cn(
         baseStyles,
+        'min-h-20',
         className
       )}
       {...props}

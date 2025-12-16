@@ -1,16 +1,15 @@
 import { hash } from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
 import { db } from '../db'
-import { issues, users } from '../db/schema'
+import { issues, users } from '@/db/schema'
+import { Status, Priority } from '@/types/Issue'
 
 async function main() {
   console.log('Starting database seeding...')
 
-  // Clean up existing data
   await db.delete(issues)
   await db.delete(users)
 
-  // Create demo users
   const demoPassword = await hash('password123', 10)
 
   const adminUserId = uuidv4()
@@ -21,7 +20,7 @@ async function main() {
     .values({
       id: adminUserId,
       email: 'doctor@healthcenter.com',
-      password: demoPassword,
+      password: demoPassword
     })
     .returning()
     .then((rows) => rows[0])
@@ -31,7 +30,7 @@ async function main() {
     .values({
       id: memberUserId,
       email: 'john.doe@patient.com',
-      password: demoPassword,
+      password: demoPassword
     })
     .returning()
     .then((rows) => rows[0])
@@ -40,7 +39,6 @@ async function main() {
   console.log(`- Doctor: ${adminUser.email} (password: password123)`)
   console.log(`- Patient: ${memberUser.email} (password: password123)`)
 
-  // Create demo patient portal issues
   const demoIssues = [
     {
       title: 'Schedule annual physical exam',
@@ -48,7 +46,7 @@ async function main() {
         'Need to schedule yearly physical examination with primary care physician. Include blood work and vitals check.',
       priority: 'high',
       status: 'done',
-      userId: memberUserId,
+      userId: memberUserId
     },
     {
       title: 'Prescription refill request',
@@ -56,7 +54,7 @@ async function main() {
         'Request refill for blood pressure medication (Lisinopril 10mg). Current supply expires next week.',
       priority: 'medium',
       status: 'in_progress',
-      userId: memberUserId,
+      userId: memberUserId
     },
     {
       title: 'Follow-up on lab results',
@@ -64,7 +62,7 @@ async function main() {
         'Discuss recent blood work results and cholesterol levels from last visit.',
       priority: 'high',
       status: 'todo',
-      userId: adminUserId,
+      userId: adminUserId
     },
     {
       title: 'Insurance verification needed',
@@ -72,7 +70,7 @@ async function main() {
         'Verify insurance coverage for upcoming MRI scan and get pre-authorization if required.',
       priority: 'medium',
       status: 'todo',
-      userId: adminUserId,
+      userId: adminUserId
     },
     {
       title: 'Update emergency contact information',
@@ -80,18 +78,17 @@ async function main() {
         'Need to update emergency contact details and preferred pharmacy in patient records.',
       priority: 'low',
       status: 'done',
-      userId: memberUserId,
+      userId: memberUserId
     },
   ]
 
   for (const issue of demoIssues) {
-    // Explicitly cast string values to enum types to fix type issues
     await db.insert(issues).values({
       title: issue.title,
       description: issue.description,
-      priority: issue.priority as 'low' | 'medium' | 'high',
-      status: issue.status as 'backlog' | 'todo' | 'in_progress' | 'done',
-      userId: issue.userId,
+      priority: issue.priority as Priority,
+      status: issue.status as Status,
+      userId: issue.userId
     })
   }
 

@@ -11,11 +11,11 @@ export interface IssuesTableProps {
 
 export const IssuesTable = ({ issues }: IssuesTableProps) => {
   return (
-    <div className="overflow-hidden rounded-lg border dark:border-zinc-800 dark:bg-zinc-900 dark:bg-dark-high shadow-sm">
+    <div className="overflow-hidden rounded-lg border dark:border-zinc-800 dark:bg-zinc-900 shadow-sm">
       <div
         className={`
           grid grid-cols-12 gap-4 px-6 py-3 text-sm font-medium text-gray-500 dark:text-gray-400
-          bg-gray-50 dark:bg-dark-elevated border-b border-gray-200 dark:border-dark-border-default
+          bg-zinc-800 border-b border-zinc-700
         `}
       >
         <div className="col-span-5">Title</div>
@@ -24,12 +24,12 @@ export const IssuesTable = ({ issues }: IssuesTableProps) => {
         <div className="col-span-3">Created</div>
       </div>
 
-      <div className="divide-y divide-gray-200 dark:divide-dark-border-default">
+      <div className="divide-y divide-zinc-800">
         {issues.map((issue) => (
           <Link
             key={issue.id}
             href={ROUTES.issues.view(issue.id).href}
-            className="block hover:bg-gray-50 dark:hover:bg-dark-elevated transition-colors"
+            className="block bg-zinc-900 hover:bg-zinc-800 transition-colors"
           >
             <div className="grid grid-cols-12 gap-4 px-6 py-4 items-center">
               <div className="col-span-5 font-medium truncate">
@@ -45,7 +45,7 @@ export const IssuesTable = ({ issues }: IssuesTableProps) => {
                   {ISSUE_PRIORITY[issue.priority].label}
                 </Badge>
               </div>
-              <div className="col-span-3 text-sm text-gray-500 dark:text-gray-400">
+              <div className="col-span-3 text-sm dark:text-gray-400">
                 {formatRelativeTime(new Date(issue.createdAt))}
               </div>
             </div>

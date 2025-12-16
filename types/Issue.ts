@@ -3,9 +3,7 @@ import { User } from '@/types/User'
 
 export type Issue = Schema.Issue
 
-export type Status = 'backlog' | 'todo' | 'in_progress' | 'done'
-export type Priority = 'low' | 'medium' | 'high'
+export type Status = Schema.Issue['status']
+export type Priority = Schema.Issue['priority']
 
-export type IssueWithUser = Issue & {
-  user: User
-}
+export type IssueWithUser = Issue & { user: User }

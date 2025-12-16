@@ -16,7 +16,7 @@ export const variants: { [K in ButtonVariant]: string } = {
     border border-gray-300 bg-transparent hover:bg-gray-100
     dark:border-dark-border-medium dark:hover:bg-gray-900 dark:hover:text-gray-100 dark:text-gray-100
   `,
-  ghost: 'bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-100 dark:text-gray-100',
+  ghost: 'bg-transparent hover:bg-gray-100 dark:hover:bg-zinc-800 dark:hover:text-gray-100 dark:text-gray-100',
   danger: 'bg-red-600 text-white hover:bg-red-700'
 }
 

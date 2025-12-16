@@ -12,6 +12,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
       ref={ref}
       className={cn(
         baseStyles,
+        'cursor-pointer',
         className
       )}
       {...props}
