@@ -21,8 +21,8 @@ export const Header = () => (
       </div>
       <div className="flex items-center gap-4">
         <div className="flex items-center space-x-6">
-          <Link href={ROUTES.auth.signin.href}>
-            <Button variant="outline">{ROUTES.auth.signin.name}</Button>
+          <Link href={ROUTES.auth.login.href}>
+            <Button variant="outline">{ROUTES.auth.login.name}</Button>
           </Link>
           <Link href={ROUTES.auth.signup.href}>
             <Button>{ROUTES.auth.signup.name}</Button>

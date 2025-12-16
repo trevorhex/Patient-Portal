@@ -1,4 +1,4 @@
-export interface RouteProps { href: string, name: string, target?: string, rel?: string }
+export interface RouteProps { href: string, name?: string, target?: string, rel?: string }
 
 interface Routes {
   marketing: {
@@ -7,9 +7,10 @@ interface Routes {
   }
   legal: RouteProps[]
   auth: {
-    signin: RouteProps
+    login: RouteProps
     signup: RouteProps
   }
+  dashboard: RouteProps
 }
 
 export const ROUTES: Routes = {
@@ -29,7 +30,8 @@ export const ROUTES: Routes = {
     { name: 'Privacy Policy', href: '/privacy' }
   ],
   auth: {
-    signin: { name: 'Log in', href: '/login' },
+    login: { name: 'Log in', href: '/login' },
     signup: { name: 'Sign up', href: '/signup' }
-  }
+  },
+  dashboard: { href: '/dashboard' }
 }
