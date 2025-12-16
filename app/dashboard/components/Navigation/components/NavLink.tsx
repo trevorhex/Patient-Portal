@@ -15,10 +15,10 @@ export const NavLink = ({ href, icon, label, isActive }: NavLinkProps) => (
       'flex items-center px-2 py-3 text-sm font-medium rounded-md group transition-colors',
       isActive
         ? 'bg-purple-600 text-white hover:bg-purple-700'
-        : 'dark:text-gray-300 dark:hover:bg-zinc-800'
+        : 'text-gray-300 hover:bg-zinc-800'
     )}
   >
-    <span className={cn('mr-3', isActive ? 'text-white' : 'dark:text-gray-500')}>{icon}</span>
+    <span className={cn('mr-3', isActive ? 'text-white' : 'text-gray-500')}>{icon}</span>
     <span className="hidden md:inline">{label}</span>
   </Link>
 )

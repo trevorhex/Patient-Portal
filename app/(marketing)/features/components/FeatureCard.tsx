@@ -6,7 +6,7 @@ export interface FeatureCardProps {
 }
 
 export const FeatureCard = ({ title, description }: FeatureCardProps) => (
-  <div className="bg-gray-800 p-8 rounded-lg shadow-sm border border-gray-700 flex flex-col gap-3">
+  <div className="flex flex-col gap-3 p-8 rounded-lg shadow-sm bg-zinc-900 border border-zinc-700">
     <h3 className="text-xl font-semibold mb-2 text-white flex items-center gap-3">
       <CheckCircle2 className="h-7 w-7 text-green-400" />
       {title}

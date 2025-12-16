@@ -1,4 +1,5 @@
-import { BadgeVariant, BadgeStatus, BadgePriority } from './index'
+import { Status, Priority } from '@/types/Issue'
+import { BadgeVariant } from './index'
 
 export const baseStyles = `
   inline-flex items-center px-2.5 py-0.5 text-xs font-medium rounded-full
@@ -13,14 +14,14 @@ export const variants: { [K in BadgeVariant]: string } = {
   danger: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
 }
 
-export const statusVariants: { [K in BadgeStatus]: BadgeVariant } = {
+export const statusVariants: { [K in Status]: BadgeVariant } = {
   backlog: 'secondary',
   todo: 'default',
   in_progress: 'warning',
   done: 'success'
 }
 
-export const priorityVariants: { [K in BadgePriority]: BadgeVariant } = {
+export const priorityVariants: { [K in Priority]: BadgeVariant } = {
   low: 'secondary',
   medium: 'default',
   high: 'danger'

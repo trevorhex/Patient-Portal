@@ -1,5 +1,6 @@
 import { ReactNode, HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
+import { errorClass } from '../styles'
 
 export interface FormErrorProps extends HTMLAttributes<HTMLParagraphElement> {
   children: ReactNode
@@ -8,7 +9,8 @@ export interface FormErrorProps extends HTMLAttributes<HTMLParagraphElement> {
 export const FormError = ({ className, children, ...props }: FormErrorProps) => (
   <p
     className={cn(
-      'text-xs font-medium text-red-500',
+      'font-medium',
+      errorClass,
       className
     )}
     {...props}

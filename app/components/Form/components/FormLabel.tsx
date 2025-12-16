@@ -8,7 +8,7 @@ export interface FormLabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 export const FormLabel = ({ className, children, ...props }: FormLabelProps) => (
   <label
     className={cn(
-      'text-sm font-medium text-gray-700 dark:text-gray-300',
+      'text-sm font-medium text-gray-300',
       className
     )}
     {...props}

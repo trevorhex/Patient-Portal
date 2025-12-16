@@ -8,7 +8,7 @@ export interface FormDescriptionProps extends HTMLAttributes<HTMLParagraphElemen
 export const FormDescription = ({ className, children, ...props }: FormDescriptionProps) => (
   <p
     className={cn(
-      'text-xs text-gray-500 dark:text-gray-400',
+      'text-xs text-gray-400',
       className
     )}
     {...props}

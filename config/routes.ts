@@ -42,7 +42,7 @@ export const ROUTES: Routes = {
   dashboard: { href: '/dashboard' },
   issues: {
     new: { href: '/issues/new' },
-    edit: (id: number) => ({ href: `/issues/:${id}/edit` }),
-    view: (id: number) => ({ href: `/issues/:${id}` })
+    edit: (id: number) => ({ href: `/issues/${id}/edit` }),
+    view: (id: number) => ({ href: `/issues/${id}` })
   }
 }

@@ -3,8 +3,8 @@ import { faqItems } from './config'
 
 export default function FAQPage() {
   return (
-    <div className="max-w-9xl mx-auto px-4 py-16 text-white">
-      <h2 className="text-4xl font-bold mb-16 text-center text-white">
+    <div className="max-w-4xl mx-auto px-4 py-16 text-white">
+      <h2 className="text-4xl font-bold mb-16 text-center">
         Frequently Asked Questions
       </h2>
       <div className="space-y-14">

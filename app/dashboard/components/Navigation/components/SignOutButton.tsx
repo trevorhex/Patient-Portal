@@ -18,8 +18,8 @@ export const SignOutButton = () => {
       onClick={handleSignOut}
       disabled={isPending}
       className={`
-        flex items-center w-full px-2 py-2 text-sm text-gray-700 dark:text-gray-300
-        dark:hover:bg-zinc-800 rounded-md transition-colors cursor-pointer
+        flex items-center w-full p-2 text-sm text-gray-300
+        hover:bg-zinc-800 rounded-md transition-colors cursor-pointer
       `}
     >
       <LogOutIcon size={20} className="mr-2" />

@@ -24,12 +24,12 @@ export const AuthPage = ({
 }: AuthPageProps) => {
   const [state, formAction, isPending] = formData ?? [{ success: false, message: '' }, () => {}, false]
   return (
-    <div className="min-h-screen flex flex-col gap-8 justify-center py-12 sm:px-6 lg:px-8 bg-[#121212]">
+    <div className="min-h-screen flex flex-col gap-8 justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h1 className="text-center text-4xl font-extrabold text-gray-900 dark:text-white">
+        <h1 className="text-center text-4xl font-extrabold text-white">
           <Link href="/">Patient Portal</Link>
         </h1>
-        <h2 className="mt-4 text-center text-xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-center text-xl font-bold text-white mt-4">
           {title}
         </h2>
       </div>
@@ -43,18 +43,10 @@ export const AuthPage = ({
           <Button type="submit" isLoading={isPending} fullWidth className="mt-1">{submitButtonText}</Button>
         </Form>
 
-        <div
-          className={`
-            dark:bg-zinc-900 py-4 px-4 shadow sm:rounded-lg sm:px-8
-            border border-gray-600 dark:border-zinc-800 text-center  
-          `}
-        >
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+        <div className="shadow sm:rounded-lg p-4 sm:px-8 text-center bg-zinc-900 border border-zinc-800">
+          <p className="text-sm text-gray-400 flex justify-center gap-2">
             {ctaText}
-            <Link
-              href={ctaLink.href}
-              className="font-medium text-gray-900 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
-            >
+            <Link href={ctaLink.href} className="font-medium text-gray-300 hover:text-gray-100 transition-colors">
               {ctaLink.name}
             </Link>
           </p>

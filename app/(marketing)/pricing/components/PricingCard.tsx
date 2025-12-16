@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { CheckCircle2, XCircle } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { Button } from '@/app/components/Button'
 
 export interface PricingFeature {
@@ -34,27 +35,26 @@ export const PricingCard = ({
 }: PricingCardProps) => {
   return (
     <div
-      className={`rounded-lg p-8 flex flex-col gap-9 ${
+      className={cn(
+        'rounded-lg p-8 flex flex-col gap-9',
         highlighted
           ? 'bg-purple-950 border-2 border-purple-600 shadow-md relative'
-          : 'bg-gray-800 border border-gray-600 shadow-sm'
-      }`}
+          : 'bg-zinc-900 border border-zinc-700 shadow-sm'
+      )}
     >
       {badge && (
-        <div className="absolute -top-3 -right-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+        <div className="absolute -top-3 -right-3 bg-purple-600 text-xs font-bold px-3 py-2 rounded-full">
           {badge}
         </div>
       )}
       <div className="flex flex-col gap-5">
-        <h3 className="text-xl font-bold text-white">{title}</h3>
-        <div className="flex flex-col gap-3">
+        <h3 className="text-xl font-bold">{title}</h3>
+        <div className="flex flex-col gap-3 text-gray-300">
           <div>
-            <span className="text-3xl font-bold text-white">{price}</span>
-            {price !== 'Custom' && (
-              <span className="text-gray-400 dark:text-gray-300"> {period}</span>
-            )}
+            <span className="text-3xl font-bold">{price}</span>
+            {price !== 'Custom' && <span> {period}</span>}
           </div>
-          <p className="text-gray-400 dark:text-gray-300">{description}</p>
+          <p>{description}</p>
         </div>
       </div>
       <ul className="space-y-3">
@@ -63,7 +63,7 @@ export const PricingCard = ({
             {feature.included
               ? <CheckCircle2 className="h-5 w-5 text-green-400 mr-2 shrink-0" />
               : <XCircle className="h-5 w-5 text-gray-500 mr-2 shrink-0" />}
-            <span className={feature.included ? 'text-white' : 'text-gray-500 dark:text-gray-500'}>
+            <span className={feature.included ? 'text-white' : 'text-gray-500'}>
               {feature.name}
             </span>
           </li>
