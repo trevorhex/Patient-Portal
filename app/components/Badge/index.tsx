@@ -1,15 +1,14 @@
 import { HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
+import { Status, Priority } from '@/types/Issue'
 import { baseStyles, variants, statusVariants, priorityVariants } from './styles'
 
 export type BadgeVariant = 'default' | 'secondary' | 'outline' | 'success' | 'warning' | 'danger'
-export type BadgeStatus = 'backlog' | 'todo' | 'in_progress' | 'done'
-export type BadgePriority = 'low' | 'medium' | 'high'
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: BadgeVariant
-  status?: BadgeStatus
-  priority?: BadgePriority
+  status?: Status
+  priority?: Priority
 }
 
 export const Badge = ({
@@ -20,8 +19,8 @@ export const Badge = ({
   priority,
   ...props
 }: BadgeProps) => {
-  const badgeStatus = statusVariants[status as BadgeStatus]
-  const badgePriority = priorityVariants[priority as BadgePriority]
+  const badgeStatus = statusVariants[status as Status]
+  const badgePriority = priorityVariants[priority as Priority]
   const badgeVariant: BadgeVariant = variant ?? badgeStatus ?? badgePriority ?? 'default'
 
   return (

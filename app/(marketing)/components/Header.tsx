@@ -3,7 +3,7 @@ import { ROUTES } from '@/config/routes'
 import { Button } from '../../components/Button'
 
 export const Header = () => (
-  <header className="border-b border-gray-700 dark:border-dark-border-subtle dark:bg-dark-base">
+  <header className="border-b border-zync-600 dark:border-zinc-800 dark:bg-dark-base">
     <div className="container mx-auto flex h-16 items-center justify-between px-4">
       <div className="flex items-center gap-8">
         <Link href="/" className="text-xl font-bold">

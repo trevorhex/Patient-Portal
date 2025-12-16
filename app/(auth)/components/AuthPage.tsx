@@ -45,8 +45,8 @@ export const AuthPage = ({
 
         <div
           className={`
-            bg-[#1A1A1A] py-4 px-4 shadow sm:rounded-lg sm:px-8
-            border border-gray-700 dark:border-dark-border-subtle text-center  
+            dark:bg-zinc-900 py-4 px-4 shadow sm:rounded-lg sm:px-8
+            border border-gray-600 dark:border-zinc-800 text-center  
           `}
         >
           <p className="text-sm text-gray-600 dark:text-gray-400">
