@@ -8,8 +8,7 @@ export default function FeaturesPage() {
       <div className="max-w-3xl mx-auto text-center mb-18">
         <h1 className="text-4xl font-bold mb-4 text-white">Features</h1>
         <p className="text-xl text-gray-400">
-          Discover how Linear Clone can help you manage your projects more
-          efficiently.
+          Discover how Patient Portal can help you manage your healthcare more efficiently.
         </p>
       </div>
 
