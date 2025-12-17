@@ -5,7 +5,7 @@ import { Footer as FooterWrapper } from '../../components/Footer'
 interface FooterLinkListProps { title: string, links: RouteProps[] }
 
 const FooterLink = ({ name, ...props }: RouteProps) => <li>
-  <Link {...props} className="text-sm text-gray-600 hover:text-purple-600">
+  <Link {...props} className="text-sm text-gray-600 hover:text-green-400">
     {name}
   </Link>
 </li>

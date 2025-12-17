@@ -1,6 +1,7 @@
 'use server'
 
 import { z } from 'zod'
+import { eq } from 'drizzle-orm'
 import { db } from '@/db'
 import { issues } from '@/db/schema'
 import { getCurrentUser } from '@/lib/dal'
@@ -70,4 +71,96 @@ export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
   }
 }
 
-export const updateIssue = async () => {}
+export const updateIssue = async (id: number, data: Partial<IssueData>): Promise<ActionResponse> => {
+  try {
+    const user = await getCurrentUser()
+    if (!user) {
+      return {
+        success: false,
+        message: 'Unauthorized access',
+        error: 'Unauthorized'
+      }
+    }
+
+    const IssueSchemaPartial = IssueSchema.partial()
+    const validationResult = IssueSchemaPartial.safeParse(data)
+
+    if (!validationResult.success) {
+      return {
+        success: false,
+        message: 'Validation failed',
+        errors: validationResult.error.flatten().fieldErrors
+      }
+    }
+
+    const existingIssue = await db.select().from(issues).where(eq(issues.id, id)).limit(1)
+    
+    if (!existingIssue.length) {
+      return {
+        success: false,
+        message: 'Issue not found',
+        error: 'Issue does not exist'
+      }
+    }
+
+    if (existingIssue[0].userId !== user.id) {
+      return {
+        success: false,
+        message: 'You can only update your own issues',
+        error: 'Forbidden'
+      }
+    }
+
+    const validatedData = validationResult.data
+    const updateData = Object.fromEntries(
+      Object.entries(validatedData).filter(([_, value]) => value !== undefined)
+    )
+
+    Object.keys(updateData).length && await db.update(issues).set(updateData).where(eq(issues.id, id))
+
+    return { success: true, message: 'Issue updated successfully' }
+  } catch (error) {
+    console.error('Error updating issue:', error)
+    return {
+      success: false,
+      message: 'An error occurred while updating the issue',
+      error: 'Failed to update issue'
+    }
+  }
+}
+
+export const deleteIssue = async (id: number) => {
+  try {
+    const user = await getCurrentUser()
+    if (!user) throw new Error('Unauthorized')
+
+    const existingIssue = await db.select().from(issues).where(eq(issues.id, id)).limit(1)
+    
+    if (!existingIssue.length) {
+      return {
+        success: false,
+        message: 'Issue not found',
+        error: 'Issue does not exist'
+      }
+    }
+
+    if (existingIssue[0].userId !== user.id) {
+      return {
+        success: false,
+        message: 'You can only delete your own issues',
+        error: 'Forbidden'
+      }
+    }
+
+    await db.delete(issues).where(eq(issues.id, id))
+
+    return { success: true, message: 'Issue deleted successfully' }
+  } catch (error) {
+    console.error('Error deleting issue:', error)
+    return {
+      success: false,
+      message: 'An error occurred while deleting the issue',
+      error: 'Failed to delete issue'
+    }
+  }
+}

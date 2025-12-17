@@ -1,3 +1,3 @@
 # Patient Portal
 
-Health management tool
+Exploring Next.js 16 and Tailwind CSS

@@ -32,8 +32,9 @@ const initialState: ActionResponse = {
   errors: undefined,
 }
 
-export const IssueForm = ({ issue, userId, isEditing = false }: IssueFormProps) => {
+export const IssueForm = ({ issue, userId }: IssueFormProps) => {
   const router = useRouter()
+  const isEditing = !!issue
 
   const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(
     async (prevState: ActionResponse, formData: FormData) => {  
@@ -47,7 +48,7 @@ export const IssueForm = ({ issue, userId, isEditing = false }: IssueFormProps) 
 
       try {
         const result = isEditing
-          ? await createIssue(data) // updateIssue(Number(issue!.id), data)
+          ? await updateIssue(Number(issue!.id), data)
           : await createIssue(data)
 
         if (result.success) {

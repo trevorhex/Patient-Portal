@@ -1,5 +1,5 @@
 export interface RouteProps { href: string, name?: string, target?: string, rel?: string }
-export type RouteFunction = (id: number) => RouteProps
+export type RouteFunction = (id: number | string) => RouteProps
 
 interface Routes {
   marketing: {
@@ -42,7 +42,7 @@ export const ROUTES: Routes = {
   dashboard: { href: '/dashboard' },
   issues: {
     new: { href: '/issues/new' },
-    edit: (id: number) => ({ href: `/issues/${id}/edit` }),
-    view: (id: number) => ({ href: `/issues/${id}` })
+    edit: (id: number | string) => ({ href: `/issues/${id}/edit` }),
+    view: (id: number | string) => ({ href: `/issues/${id}` })
   }
 }

@@ -1,5 +1,12 @@
-import React from 'react'
+import { IssueLayout } from '../../components/IssueLayout'
+import { IssueSuspense } from '../../components/IssueSuspense'
 
-export default function EditIssuePage() {
-  return <div>Edit Issue Page</div>
+export type EditIssuePageProps = { params: Promise<{ id: string }> }
+
+export default function EditIssuePage({ params }: EditIssuePageProps) {
+  return (
+    <IssueLayout heading="Edit Issue">
+      <IssueSuspense params={params} />
+    </IssueLayout>
+  )
 }

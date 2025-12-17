@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { CheckCircle2, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/app/components/Button'
+import { Badge } from '@/app/components/Badge'
+import { Card } from '@/app/components/Card'
 
 export interface PricingFeature {
   name: string
@@ -31,22 +33,16 @@ export const PricingCard = ({
   buttonLink,
   highlighted = false,
   disabled = false,
-  badge,
+  badge
 }: PricingCardProps) => {
   return (
-    <div
-      className={cn(
-        'rounded-lg p-8 flex flex-col gap-9',
-        highlighted
-          ? 'bg-purple-950 border-2 border-purple-600 shadow-md relative'
-          : 'bg-zinc-900 border border-zinc-700 shadow-sm'
-      )}
-    >
-      {badge && (
-        <div className="absolute -top-3 -right-3 bg-purple-600 text-xs font-bold px-3 py-2 rounded-full">
-          {badge}
-        </div>
-      )}
+    <Card className={cn(
+      'p-8 shadow-sm flex flex-col gap-9',
+      highlighted && 'bg-purple-950 border-2 border-purple-600 shadow-md relative'
+    )}>
+      {badge && <Badge className="absolute -top-3 -right-3 dark:bg-purple-600 px-3 py-2 dark:text-white">
+        {badge}
+      </Badge>}
       <div className="flex flex-col gap-5">
         <h3 className="text-xl font-bold">{title}</h3>
         <div className="flex flex-col gap-3 text-gray-300">
@@ -72,6 +68,6 @@ export const PricingCard = ({
       <Link href={buttonLink} className={disabled ? 'pointer-events-none' : ''}>
         <Button variant={highlighted ? 'primary' : 'outline'} fullWidth>{buttonText}</Button>
       </Link>
-    </div>
+    </Card>
   )
 }
