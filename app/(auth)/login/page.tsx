@@ -25,8 +25,8 @@ export default function LogInPage() {
 
         if (result.success) {
           toast.success('Signed in successfully')
-          router.push(ROUTES.dashboard.href)
           router.refresh()
+          router.push(ROUTES.dashboard.href)
         }
 
         return result

@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { cacheTag } from 'next/cache'
 import { eq, and } from 'drizzle-orm'
 import { db } from '@/db'
@@ -24,7 +25,7 @@ export const getUserById = async (userId: string) => {
   }
 }
 
-export const getCurrentUser = async () => {
+export const getCurrentUser = cache(async () => {
   const session = await getSession()
   if (!session) return null
 
@@ -34,7 +35,7 @@ export const getCurrentUser = async () => {
     console.error(e)
     return null
   }
-}
+})
 
 export const getUserByEmail = async (email: string) => {
   try {

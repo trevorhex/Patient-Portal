@@ -2,6 +2,7 @@
 
 import { useActionState } from 'react'
 import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 import { Issue, ISSUE_STATUS, ISSUE_PRIORITY, getOptions } from '@/db/schema'
 import { Button } from '@/app/components/Button'
 import {
@@ -17,7 +18,6 @@ import {
 } from '@/app/components/Form'
 import { Priority, Status } from '@/types/Issue'
 import { ROUTES } from '@/config/routes'
-import { cn } from '@/lib/utils'
 import { createIssue, updateIssue, ActionResponse } from '@/actions/issues'
 
 export interface IssueFormProps {
@@ -52,6 +52,7 @@ export const IssueForm = ({ issue, userId }: IssueFormProps) => {
           : await createIssue(data)
 
         if (result.success) {
+          toast.success(`Issue ${isEditing ? 'updated' : 'created'} successfully`)
           router.refresh()
           router.push(isEditing ? ROUTES.issues.view(issue!.id).href : ROUTES.dashboard.href)
         }
@@ -73,8 +74,8 @@ export const IssueForm = ({ issue, userId }: IssueFormProps) => {
 
   return (
     <Form action={formAction}>
-      {state?.message && (
-        <FormError className={cn('mb-4', state.success && 'bg-green-100 text-green-800 border-green-300')}>
+      {state?.message && !state.success && (
+        <FormError className="mb-4">
           {state.message}
         </FormError>
       )}
