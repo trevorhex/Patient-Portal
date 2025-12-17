@@ -13,6 +13,7 @@ interface Routes {
   }
   dashboard: RouteProps
   issues: {
+    base: RouteProps
     new: RouteProps
     edit: RouteFunction
     view: RouteFunction
@@ -41,6 +42,7 @@ export const ROUTES: Routes = {
   },
   dashboard: { href: '/dashboard' },
   issues: {
+    base: { href: '/issues' },
     new: { href: '/issues/new' },
     edit: (id: number | string) => ({ href: `/issues/${id}/edit` }),
     view: (id: number | string) => ({ href: `/issues/${id}` })
