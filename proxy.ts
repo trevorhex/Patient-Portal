@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server'
 import { headers } from 'next/headers'
 
-export const middleware = async (request: NextRequest) => {
+export const proxy = async (request: NextRequest) => {
   if (request.nextUrl.pathname.startsWith('/api')) {
     const authHeader = (await headers()).get('Authorization')
     // validate authHeader
