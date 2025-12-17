@@ -13,7 +13,7 @@ export const GET = async (req: NextRequest) => {
   }
 }
 
-export const POST = async (req: NextResponse) => {
+export const POST = async (req: NextRequest) => {
   try {
     const user = await getCurrentUser()
     const values = await req.json()
