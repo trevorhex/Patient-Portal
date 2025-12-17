@@ -25,9 +25,9 @@ export const DeleteIssueButton = ({ id }: DeleteIssueButtonProps) => {
         toast.success('Issue deleted successfully')
         router.push(ROUTES.dashboard.href)
         router.refresh()
-      } catch (error) {
+      } catch (e) {
         toast.error('Failed to delete issue')
-        console.error('Error deleting issue:', error)
+        console.error('Error deleting issue:', e)
       }
     })
   }

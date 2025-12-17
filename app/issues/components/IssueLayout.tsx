@@ -1,4 +1,4 @@
-import { ReactNode, ComponentType } from 'react'
+import { ReactNode } from 'react'
 import Link from 'next/link'
 import { ArrowLeftIcon } from 'lucide-react'
 import { ROUTES } from '@/config/routes'

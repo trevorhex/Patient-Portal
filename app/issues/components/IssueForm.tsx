@@ -53,7 +53,7 @@ export const IssueForm = ({ issue, userId }: IssueFormProps) => {
 
         if (result.success) {
           router.refresh()
-          !isEditing && router.push(ROUTES.dashboard.href)
+          router.push(isEditing ? ROUTES.issues.view(issue!.id).href : ROUTES.dashboard.href)
         }
 
         return result

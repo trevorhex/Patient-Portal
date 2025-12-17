@@ -1,11 +1,12 @@
 'use server'
 
+import { revalidateTag, revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
-import { issues } from '@/db/schema'
-import { getCurrentUser } from '@/lib/dal'
-import { status, priority } from '@/db/schema'
+import { issues, status, priority } from '@/db/schema'
+import { getCurrentUser, ISSUES_BY_USER_ID_CACHE_TAG, USER_ISSUE_BY_ID_CACHE_TAG } from '@/lib/dal'
+import { ROUTES } from '@/config/routes'
 
 const IssueSchema = z.object({
   title: z.string()
@@ -60,9 +61,11 @@ export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
       userId: validatedData.userId
     })
 
+    revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user.id}`, 'max')
+
     return { success: true, message: 'Issue created successfully' }
-  } catch (error) {
-    console.error('Error creating issue:', error)
+  } catch (e) {
+    console.error('Error creating issue:', e)
     return {
       success: false,
       message: 'An error occurred while creating the issue',
@@ -116,11 +119,17 @@ export const updateIssue = async (id: number, data: Partial<IssueData>): Promise
       Object.entries(validatedData).filter(([_, value]) => value !== undefined)
     )
 
-    Object.keys(updateData).length && await db.update(issues).set(updateData).where(eq(issues.id, id))
+    if (Object.keys(updateData).length) {
+      await db.update(issues).set(updateData).where(eq(issues.id, id))
+
+      revalidateTag(`${USER_ISSUE_BY_ID_CACHE_TAG}${user.id}-${id}`, 'max')
+      revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user.id}`, 'max')
+      revalidatePath(ROUTES.dashboard.href)
+    }
 
     return { success: true, message: 'Issue updated successfully' }
-  } catch (error) {
-    console.error('Error updating issue:', error)
+  } catch (e) {
+    console.error('Error updating issue:', e)
     return {
       success: false,
       message: 'An error occurred while updating the issue',
@@ -154,9 +163,11 @@ export const deleteIssue = async (id: number) => {
 
     await db.delete(issues).where(eq(issues.id, id))
 
+    revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user.id}`, 'max')
+
     return { success: true, message: 'Issue deleted successfully' }
-  } catch (error) {
-    console.error('Error deleting issue:', error)
+  } catch (e) {
+    console.error('Error deleting issue:', e)
     return {
       success: false,
       message: 'An error occurred while deleting the issue',

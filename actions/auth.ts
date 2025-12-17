@@ -1,14 +1,10 @@
 'use server'
 
 import { redirect } from 'next/navigation'
+import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
-import {
-  verifyPassword,
-  createSession,
-  createUser,
-  deleteSession,
-} from '@/lib/session'
-import { getUserByEmail } from '@/lib/dal'
+import { verifyPassword, createSession, createUser, deleteSession } from '@/lib/session'
+import { getCurrentUser, getUserByEmail, USER_BY_ID_CACHE_TAG } from '@/lib/dal'
 import { ROUTES } from '@/config/routes'
 
 const LogInSchema = z.object({
@@ -88,8 +84,8 @@ export const logIn = async (formData: FormData): Promise<ActionResponse> => {
       success: true,
       message: 'Signed in successfully'
     }
-  } catch (error) {
-    console.error('Sign in error:', error)
+  } catch (e) {
+    console.error('Sign in error:', e)
     return {
       success: false,
       message: 'An error occurred while Logging in',
@@ -141,8 +137,8 @@ export const signUp = async (formData: FormData): Promise<ActionResponse> => {
       success: true,
       message: 'Account created successfully'
     }
-  } catch (error) {
-    console.error('Sign up error:', error)
+  } catch (e) {
+    console.error('Sign up error:', e)
     return {
       success: false,
       message: 'An error occurred while creating your account',
@@ -152,12 +148,14 @@ export const signUp = async (formData: FormData): Promise<ActionResponse> => {
 }
 
 export const logOut = async (): Promise<void> => {
+  const user = await getCurrentUser()
   try {
     await deleteSession()
-  } catch (error) {
-    console.error('Sign out error:', error)
+  } catch (e) {
+    console.error('Sign out error:', e)
     throw new Error('Failed to sign out')
   } finally {
+    revalidateTag(`${USER_BY_ID_CACHE_TAG}${user?.id}`, 'max')
     redirect(ROUTES.auth.login.href)
   }
 }
