@@ -1,12 +1,12 @@
-const Field = ({ h = '10' }: { h?: string }) => <div className="space-y-2 grow">
+const Field = ({ textarea }: { textarea?: boolean }) => <div className="space-y-2 grow">
   <div className="h-4.5 w-24 bg-zinc-800 rounded"></div>
-  <div className={`h-${h} bg-zinc-800 rounded`}></div>
+  <div className={`${textarea ? 'h-20' : 'h-10'} bg-zinc-800 rounded`}></div>
 </div>
 
 export const IssueFormSkeleton = () => (
   <div className="animate-pulse space-y-4.5 pb-1">
     <Field />
-    <Field h="20" />
+    <Field textarea />
     <div className="flex gap-4">
       <Field />
       <Field />
