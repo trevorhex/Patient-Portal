@@ -11,20 +11,20 @@ const IssuesComponent = async () => {
   return <IssuesTable issues={issues} />
 }
 
-const IssuesSkeleton = () => (
-  <div className="overflow-hidden rounded-lg bg-zinc-800 border border-zinc-700 shadow-sm">
+const IssuesTableSkeleton = () => (
+  <div className="overflow-hidden rounded-lg bg-zinc-900 border border-zinc-700 shadow-sm">
     <TableHeader />
     <div className="divide-y divide-zinc-700 animate-pulse">
       {Array.from({ length: 5 }).map((_, i) => (
         <div key={i} className="grid grid-cols-12 gap-4 px-6 py-5 items-center divide-y divide-zinc-700">
           {[5, 2, 2, 3].map((span, j) =>
-            <div key={j} className={`col-span-${span} h-4 bg-zinc-600 rounded`} />)}
+            <div key={j} className={`col-span-${span} h-4 bg-zinc-800 rounded`} />)}
         </div>
       ))}
     </div>
   </div>
 )
 
-export const Issues = async () => <Suspense fallback={<IssuesSkeleton />}>
+export const Issues = async () => <Suspense fallback={<IssuesTableSkeleton />}>
   <IssuesComponent />
 </Suspense>

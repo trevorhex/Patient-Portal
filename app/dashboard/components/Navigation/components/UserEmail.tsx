@@ -19,8 +19,8 @@ const UserEmailComponent = async () => {
 
 const UserEmailSkeleton = () => (
   <div className="animate-pulse flex flex-col space-y-5 py-3">
-    <div className="h-4 bg-gray-600 rounded" />
-    <div className="h-4 bg-gray-600 rounded" />
+    <div className="h-4 bg-zinc-800 rounded" />
+    <div className="h-4 bg-zinc-800 rounded" />
   </div>
 )
 

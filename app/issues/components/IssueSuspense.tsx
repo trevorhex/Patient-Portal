@@ -4,6 +4,7 @@ import { getCurrentUser, getIssue } from '@/lib/dal'
 import { ROUTES } from '@/config/routes'
 import { Card } from '@/app/components/Card'
 import { IssueForm } from './IssueForm'
+import { IssueFormSkeleton } from './IssueFormSkeleton'
 
 export interface IssueSuspenseProps {
   params?: Promise<{ id: string }>
@@ -24,7 +25,7 @@ const IssueComponent = async ({ params }: IssueSuspenseProps) => {
 }
 
 export const IssueSuspense = (props: IssueSuspenseProps) => <Card>
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<IssueFormSkeleton />}>
     <IssueComponent {...props} />
   </Suspense>
 </Card>
