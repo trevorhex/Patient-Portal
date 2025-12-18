@@ -1,13 +1,13 @@
 'use client'
 
-import { useMemo, useActionState } from 'react'
+import { useActionState } from 'react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
-import { FormGroup, FormLabel, FormInput, errorClass, inputErrorClass } from '@/app/components/Form'
 import { logIn, ActionResponse } from '@/actions/auth'
 import { ROUTES } from '@/config/routes'
 import { AuthPage } from '../components/AuthPage'
+import { FormFields } from './components/FormFields'
 
 const initialState: ActionResponse = {
   success: false,
@@ -42,43 +42,7 @@ export default function LogInPage() {
   )
   const [state, formAction, isPending] = formData
 
-  const FormFields = useMemo(() => () => <>
-    <FormGroup>
-      <FormLabel htmlFor="email">Email</FormLabel>
-      <FormInput
-        id="email"
-        name="email"
-        type="email"
-        autoComplete="email"
-        required
-        disabled={isPending}
-        aria-describedby="email-error"
-        className={state?.errors?.email ? inputErrorClass : ''}
-      />
-      {state?.errors?.email &&
-        <p id="email-error" className={errorClass}>{state.errors.email[0]}</p>}
-    </FormGroup>
-
-    <FormGroup>
-      <FormLabel htmlFor="password">Password</FormLabel>
-      <FormInput
-        id="password"
-        name="password"
-        type="password"
-        autoComplete="current-password"
-        required
-        disabled={isPending}
-        aria-describedby="password-error"
-        className={state?.errors?.password ? inputErrorClass : ''}
-      />
-      {state?.errors?.password &&
-        <p id="password-error" className={errorClass}>{state.errors.password[0]}</p>}
-    </FormGroup>
-  </>, [
-    state?.errors?.email?.toString(),
-    state?.errors?.password?.toString(),
-    isPending
-  ])
+  const LogInFormFields = () => <FormFields formData={formData} />
 
   return (
     <AuthPage
@@ -86,7 +50,7 @@ export default function LogInPage() {
       ctaText="Don't have an account? "
       ctaLink={ROUTES.auth.signup}
       formData={formData}
-      FormFields={FormFields}
+      FormFields={LogInFormFields}
       submitButtonText="Log in"
     />
   )
