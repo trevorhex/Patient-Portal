@@ -5,7 +5,7 @@ import { ROUTES } from '@/config/routes'
 
 export interface IssueLayoutProps {
   children?: ReactNode
-  heading?: string
+  heading?: string | ReactNode
   buttons?: ReactNode
 }
 
@@ -21,7 +21,8 @@ export const IssueLayout = ({ heading, children = null, buttons = null }: IssueL
           Back to Dashboard
         </Link>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4">
-          {heading && <h1 className="text-2xl font-bold">{heading}</h1>}
+          {typeof heading === 'string' && <h1 className="text-2xl font-bold">{heading}</h1>}
+          {typeof heading === 'object' && heading}
           {buttons && <div className="flex items-center space-x-2">{buttons}</div>}
         </div>
       </div>
