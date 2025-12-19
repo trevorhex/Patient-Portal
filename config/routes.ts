@@ -11,8 +11,11 @@ interface Routes {
     login: RouteProps
     signup: RouteProps
   }
+  account: RouteProps
   dashboard: RouteProps
-  wizard: RouteProps
+  profile: {
+    base: RouteProps
+  }
   issues: {
     base: RouteProps
     new: RouteProps
@@ -42,8 +45,11 @@ export const ROUTES: Routes = {
     login: { name: 'Log in', href: '/login' },
     signup: { name: 'Sign up', href: '/signup' }
   },
+  account: { name: 'Account', href: '/account' },
   dashboard: { name: 'Dashboard', href: '/dashboard' },
-  wizard: { name: 'Setup Wizard', href: '/setup' },
+  profile: {
+    base: { name: 'Patient Profile', href: '/profile' }
+  },
   issues: {
     base: { name: 'Issues', href: '/issues' },
     new: { name: 'New Issue', href: '/issues/new' },

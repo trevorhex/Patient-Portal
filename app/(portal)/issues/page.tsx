@@ -9,16 +9,14 @@ export default function IssuesPage() {
   return (
     <PortalLayout
       heading="Issues"
-      buttons={
-        <Link href={ROUTES.issues.new.href}>
-          <Button>
-            <span className="flex items-center">
-              <PlusIcon size={18} className="mr-2" />
-              New Issue
-            </span>
-          </Button>
-        </Link>
-      }
+      buttons={<Link href={ROUTES.issues.new.href}>
+        <Button>
+          <span className="flex items-center">
+            <PlusIcon size={18} className="mr-2" />
+            New Issue
+          </span>
+        </Button>
+      </Link>}
     >
       <Issues />
     </PortalLayout>

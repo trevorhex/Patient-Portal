@@ -6,13 +6,15 @@ export interface NavLinkProps {
   icon: React.ReactNode
   label: string
   isActive?: boolean
+  size?: 'sm' | 'md'
 }
 
-export const NavLink = ({ href, icon, label, isActive }: NavLinkProps) => (
+export const NavLink = ({ href, icon, label, isActive, size }: NavLinkProps) => (
   <Link
     href={href}
     className={cn(
-      'flex items-center px-2 py-3 text-sm font-medium rounded-md group transition-colors',
+      'flex items-center px-2 rounded-md group transition-colors',
+      size === 'sm' ? 'py-2 text-sm' : 'py-3 text-base',
       isActive
         ? 'bg-purple-600 text-white hover:bg-purple-700'
         : 'text-gray-300 hover:bg-zinc-800'
