@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react'
 import { cn } from '@/lib/utils'
-import { Status, Priority } from '@/types/Issue'
+import { Status, Priority } from '@/types/issue'
 import { baseStyles, variants, statusVariants, priorityVariants } from './styles'
 
 export type BadgeVariant = 'default' | 'secondary' | 'outline' | 'success' | 'warning' | 'danger'

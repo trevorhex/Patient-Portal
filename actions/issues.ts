@@ -5,7 +5,8 @@ import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
 import { issues, status, priority } from '@/db/schema'
-import { getCurrentUser, ISSUES_BY_USER_ID_CACHE_TAG, USER_ISSUE_BY_ID_CACHE_TAG } from '@/lib/dal'
+import { ISSUES_BY_USER_ID_CACHE_TAG, USER_ISSUE_BY_ID_CACHE_TAG } from '@/dal/issue'
+import { getAuthenticatedUser } from '@/dal/user'
 import { ROUTES } from '@/config/routes'
 
 const IssueSchema = z.object({
@@ -34,14 +35,7 @@ export type ActionResponse = {
 
 export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
   try {
-    const user = await getCurrentUser()
-    if (!user) {
-      return {
-        success: false,
-        message: 'Unauthorized access',
-        error: 'Unauthorized'
-      }
-    }
+    const user = await getAuthenticatedUser()
 
     const validationResult = IssueSchema.safeParse(data)
     if (!validationResult.success) {
@@ -61,7 +55,7 @@ export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
       userId: validatedData.userId
     })
 
-    revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user.id}`, 'max')
+    revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user?.id}`, 'max')
 
     return { success: true, message: 'Issue created successfully' }
   } catch (e) {
@@ -76,14 +70,7 @@ export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
 
 export const updateIssue = async (id: number, data: Partial<IssueData>): Promise<ActionResponse> => {
   try {
-    const user = await getCurrentUser()
-    if (!user) {
-      return {
-        success: false,
-        message: 'Unauthorized access',
-        error: 'Unauthorized'
-      }
-    }
+    const user = await getAuthenticatedUser()
 
     const IssueSchemaPartial = IssueSchema.partial()
     const validationResult = IssueSchemaPartial.safeParse(data)
@@ -106,7 +93,7 @@ export const updateIssue = async (id: number, data: Partial<IssueData>): Promise
       }
     }
 
-    if (existingIssue[0].userId !== user.id) {
+    if (existingIssue[0].userId !== user?.id) {
       return {
         success: false,
         message: 'You can only update your own issues',
@@ -140,8 +127,7 @@ export const updateIssue = async (id: number, data: Partial<IssueData>): Promise
 
 export const deleteIssue = async (id: number) => {
   try {
-    const user = await getCurrentUser()
-    if (!user) throw new Error('Unauthorized')
+    const user = await getAuthenticatedUser()
 
     const existingIssue = await db.select().from(issues).where(eq(issues.id, id)).limit(1)
     
@@ -153,7 +139,7 @@ export const deleteIssue = async (id: number) => {
       }
     }
 
-    if (existingIssue[0].userId !== user.id) {
+    if (existingIssue[0].userId !== user?.id) {
       return {
         success: false,
         message: 'You can only delete your own issues',
@@ -163,7 +149,7 @@ export const deleteIssue = async (id: number) => {
 
     await db.delete(issues).where(eq(issues.id, id))
 
-    revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user.id}`, 'max')
+    revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user?.id}`, 'max')
 
     return { success: true, message: 'Issue deleted successfully' }
   } catch (e) {

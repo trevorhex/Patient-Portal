@@ -2,7 +2,7 @@ import { hash } from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
 import { db } from '../db'
 import { issues, users } from '@/db/schema'
-import { Status, Priority } from '@/types/Issue'
+import { Status, Priority } from '@/types/issue'
 
 async function main() {
   console.log('Starting database seeding...')

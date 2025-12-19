@@ -1,6 +1,6 @@
 import { Badge } from '@/app/components/Badge'
 import { formatRelativeTime } from '@/lib/utils'
-import { IssueWithUser, Priority, Status } from '@/types/Issue'
+import { IssueWithUser, Priority, Status } from '@/types/issue'
 
 export interface IssueDetailsProps { issue: IssueWithUser }
 

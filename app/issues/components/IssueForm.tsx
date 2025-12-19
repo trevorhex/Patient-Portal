@@ -16,7 +16,7 @@ import {
   errorClass,
   inputErrorClass
 } from '@/app/components/Form'
-import { Priority, Status } from '@/types/Issue'
+import { Priority, Status } from '@/types/issue'
 import { ROUTES } from '@/config/routes'
 import { createIssue, updateIssue, ActionResponse } from '@/actions/issues'
 

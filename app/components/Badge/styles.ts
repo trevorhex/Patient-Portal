@@ -1,4 +1,4 @@
-import { Status, Priority } from '@/types/Issue'
+import { Status, Priority } from '@/types/issue'
 import { BadgeVariant } from './index'
 
 export const baseStyles = `
