@@ -1,9 +1,9 @@
 import { Card } from '@/app/components/Card'
-import { DashboardLayout } from '../components/DashboardLayout'
+import { PortalLayout } from '../components/PortalLayout'
 
 export default function DashboardPage() {
   return (
-    <DashboardLayout heading="Dashboard">
+    <PortalLayout heading="Dashboard">
       <div className="space-y-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <Card className="h-60"><></></Card>
@@ -11,6 +11,6 @@ export default function DashboardPage() {
         </div>
         <Card className="h-100"><></></Card>
       </div>
-    </DashboardLayout>
+    </PortalLayout>
   )
 }

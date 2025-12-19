@@ -1,12 +1,12 @@
 import { ReactNode } from 'react'
 
-export interface DashboardLayoutProps {
+export interface PortalLayoutProps {
   children?: ReactNode
   heading?: string | ReactNode
   buttons?: ReactNode
 }
 
-export const DashboardLayout = ({ heading, children = null, buttons = null }: DashboardLayoutProps) => {
+export const PortalLayout = ({ heading, children = null, buttons = null }: PortalLayoutProps) => {
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between min-h-11">
