@@ -1,9 +1,9 @@
 import { DashboardLayout } from '../components/DashboardLayout'
 import { Wizard } from './components/Wizard'
 
-export default function SetUpWizardPage() {
+export default function SetupWizardPage() {
   return (
-    <DashboardLayout heading="Set Up Wizard">
+    <DashboardLayout heading="Setup Wizard">
       <Wizard />
     </DashboardLayout>
   )

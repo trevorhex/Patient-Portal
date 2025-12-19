@@ -15,7 +15,7 @@ const initialState: ActionResponse = {
   errors: undefined
 }
 
-export default function SignUpPage() {
+export default function SignupPage() {
   const router = useRouter()
 
   const formData = useActionState<ActionResponse, FormData>(
