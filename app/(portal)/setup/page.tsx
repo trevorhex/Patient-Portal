@@ -1,10 +1,10 @@
-import { DashboardLayout } from '../components/DashboardLayout'
+import { PortalLayout } from '../components/PortalLayout'
 import { Wizard } from './components/Wizard'
 
 export default function SetupWizardPage() {
   return (
-    <DashboardLayout heading="Setup Wizard">
+    <PortalLayout heading="Setup Wizard">
       <Wizard />
-    </DashboardLayout>
+    </PortalLayout>
   )
 }

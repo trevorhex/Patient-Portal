@@ -2,12 +2,12 @@ import Link from 'next/link'
 import { PlusIcon } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
 import { Button } from '@/app/components/Button'
-import { DashboardLayout } from '../components/DashboardLayout'
+import { PortalLayout } from '../components/PortalLayout'
 import { Issues } from './components/Issues'
 
 export default function IssuesPage() {
   return (
-    <DashboardLayout
+    <PortalLayout
       heading="Issues"
       buttons={
         <Link href={ROUTES.issues.new.href}>
@@ -21,6 +21,6 @@ export default function IssuesPage() {
       }
     >
       <Issues />
-    </DashboardLayout>
+    </PortalLayout>
   )
 }
