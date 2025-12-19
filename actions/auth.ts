@@ -123,6 +123,7 @@ export const signUp = async (formData: FormData): Promise<ActionResponse> => {
     }
 
     const user = await createUser(data.email, data.password)
+    console.log('Created user:', user)
     if (!user) {
       return {
         success: false,
