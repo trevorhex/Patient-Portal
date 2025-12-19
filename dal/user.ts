@@ -25,7 +25,7 @@ export const getUserById = async (userId: string) => {
 export const getAuthenticatedUser = async () => {
   try {
     const session = await getSession()
-    if (!session) throw new Error('User not authenticated')
+    if (!session) return null
 
     return await getUserById(session.userId)
   } catch (e) {

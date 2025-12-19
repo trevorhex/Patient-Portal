@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { Badge } from '@/app/components/Badge'
 import { formatRelativeTime } from '@/lib/utils'
-import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema'
+import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/types'
 import { Issue, Status, Priority } from '@/types/issue'
 import { ROUTES } from '@/config/routes'
 

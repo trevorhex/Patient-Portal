@@ -3,7 +3,8 @@
 import { useActionState } from 'react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
-import { Issue, ISSUE_STATUS, ISSUE_PRIORITY, getOptions } from '@/db/schema'
+import { getOptions } from '@/db/schema'
+import { Issue, ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/types'
 import { Button } from '@/app/components/Button'
 import {
   Form,
@@ -54,7 +55,7 @@ export const IssueForm = ({ issue, userId }: IssueFormProps) => {
         if (result.success) {
           toast.success(`Issue ${isEditing ? 'updated' : 'created'} successfully`)
           router.refresh()
-          router.push(isEditing ? ROUTES.issues.view(issue!.id).href : ROUTES.dashboard.href)
+          router.push(isEditing ? ROUTES.issues.view(issue!.id).href : ROUTES.issues.base.href)
         }
 
         return result

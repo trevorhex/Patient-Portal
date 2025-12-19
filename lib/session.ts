@@ -2,7 +2,7 @@ import { compare, hash } from 'bcrypt'
 import { nanoid } from 'nanoid'
 import { cookies } from 'next/headers'
 import { db } from '@/db'
-import { users } from '@/db/schema'
+import { users, profiles } from '@/db/schema'
 import * as jose from 'jose'
 import { cache } from 'react'
 
@@ -25,10 +25,9 @@ export const createUser = async (email: string, password: string) => {
   const id = nanoid()
 
   try {
-    await db.insert(users).values({
-      id,
-      email,
-      password: hashedPassword,
+    await db.transaction(async (tx) => {
+      await tx.insert(users).values({ id, email, password: hashedPassword })
+      await tx.insert(profiles).values({ userId: id, firstName: '', lastName: '' })
     })
 
     return { id, email }
@@ -101,7 +100,7 @@ export const getSession = cache(async () => {
     return payload ? { userId: payload.userId } : null
   } catch (e) {
     if (e instanceof Error && e.message.includes('During prerendering, `cookies()` rejects')) {
-      console.log('Cookies not available during prerendering, returning null session')
+      // Cookies not available during prerendering, returning null session
       return null
     }
 

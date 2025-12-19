@@ -1,11 +1,10 @@
-import { InferSelectModel, relations } from 'drizzle-orm'
+import { relations } from 'drizzle-orm'
 import { pgTable, serial, text, timestamp, pgEnum } from 'drizzle-orm/pg-core'
 
-export const status: [string, ...string[]] = ['backlog', 'todo', 'in_progress', 'done']
-export const priority: [string, ...string[]] = ['low', 'medium', 'high']
+import { IssueStatus, IssuePriority, issueStatus, issuePriority } from '@/db/types'
 
-const statusEnum = pgEnum('status', status)
-const priorityEnum = pgEnum('priority', priority)
+export const issueStatusEnum = pgEnum('issue_status', issueStatus)
+export const issuePriorityEnum = pgEnum('issue_priority', issuePriority)
 
 export const issues = pgTable('issues', {
   id: serial('id')
@@ -13,10 +12,10 @@ export const issues = pgTable('issues', {
   title: text('title')
     .notNull(),
   description: text('description'),
-  status: statusEnum('status')
+  status: issueStatusEnum('status')
     .default('backlog')
     .notNull(),
-  priority: priorityEnum('priority')
+  priority: issuePriorityEnum('priority')
     .default('medium')
     .notNull(),
   createdAt: timestamp('created_at')
@@ -26,7 +25,7 @@ export const issues = pgTable('issues', {
     .defaultNow()
     .notNull(),
   userId: text('user_id')
-    .notNull()
+  .notNull()
 })
 
 export const users = pgTable('users', {
@@ -42,33 +41,62 @@ export const users = pgTable('users', {
     .notNull()
 })
 
+export const profiles = pgTable('profiles', {
+  id: serial('id')
+    .primaryKey(),
+  userId: text('user_id')
+    .notNull()
+    .unique(),
+  firstName: text('first_name')
+    .notNull(),
+  lastName: text('last_name')
+    .notNull(),
+  phoneNumber: text('phone_number'),
+  address: text('address'),
+  createdAt: timestamp('created_at')
+    .defaultNow()
+    .notNull(),
+  updatedAt: timestamp('updated_at')
+    .defaultNow()
+    .notNull()
+})
+
+export const accountSettings = pgTable('account_settings', {
+  id: serial('id')
+    .primaryKey(),
+  userId: text('user_id')
+    .notNull()
+    .unique(),
+  notificationsEnabled: text('notifications_enabled')
+    .default('true')
+    .notNull(),
+  createdAt: timestamp('created_at')
+    .defaultNow()
+    .notNull(),
+  updatedAt: timestamp('updated_at')
+    .defaultNow()
+    .notNull()
+})
+
 export const issuesRelations = relations(issues, ({ one }) => ({
   user: one(users, { fields: [issues.userId], references: [users.id] })
 }))
 
-export const usersRelations = relations(users, ({ many }) => ({
-  issues: many(issues)
+export const usersRelations = relations(users, ({ many, one }) => ({
+  issues: many(issues),
+  profile: one(profiles, { fields: [users.id], references: [profiles.userId] }),
+  accountSettings: one(accountSettings, { fields: [users.id], references: [accountSettings.userId] })
 }))
 
-export const ISSUE_STATUS: IssueStatus = {
-  backlog: { label: 'Backlog', value: status[0] },
-  todo: { label: 'Todo', value: status[1] },
-  in_progress: { label: 'In Progress', value: status[2] },
-  done: { label: 'Done', value: status[3] }
-}
+export const profileRelations = relations(profiles, ({ one }) => ({
+  user: one(users, { fields: [profiles.userId], references: [users.id] })
+}))
 
-export const ISSUE_PRIORITY: IssuePriority = {
-  low: { label: 'Low', value: priority[0] },
-  medium: { label: 'Medium', value: priority[1] },
-  high: { label: 'High', value: priority[2] }
-}
 
-export type IssueStatus = Record<typeof status[number], { label: string; value: typeof status[number] }>
-export type IssuePriority = Record<typeof priority[number], { label: string; value: typeof priority[number] }>
+export const accountSettingsRelations = relations(accountSettings, ({ one }) => ({
+  user: one(users, { fields: [accountSettings.userId], references: [users.id] })
+}))
 
 export const getOptions = (value: IssueStatus | IssuePriority) => Object.values(value).map(
   ({ label, value }: { label: string, value: string }) => ({ label, value })
 )
-
-export type Issue = InferSelectModel<typeof issues>
-export type User = InferSelectModel<typeof users>
