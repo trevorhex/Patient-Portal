@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ROUTES } from '@/config/routes'
 import { NavMenu } from './components/NavMenu'
-import { UserEmail } from './components/UserEmail'
+import { UserNav } from './components/UserNav'
 
 export const Navigation = () => (
   <aside
@@ -23,7 +23,7 @@ export const Navigation = () => (
     <NavMenu />
 
     <div className="pt-4 border-t border-zinc-700">
-      <UserEmail />
+      <UserNav />
     </div>
   </aside>
 )
