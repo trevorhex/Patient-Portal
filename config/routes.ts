@@ -43,7 +43,7 @@ export const ROUTES: Routes = {
     signup: { name: 'Sign up', href: '/signup' }
   },
   dashboard: { name: 'Dashboard', href: '/dashboard' },
-  wizard: { name: 'Setup Wizard', href: '/set-up' },
+  wizard: { name: 'Setup Wizard', href: '/setup' },
   issues: {
     base: { name: 'Issues', href: '/issues' },
     new: { name: 'New Issue', href: '/issues/new' },
