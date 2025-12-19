@@ -22,7 +22,6 @@ export default function SignupPage() {
     async (prevState: ActionResponse, formData: FormData) => {
       try {
         const result = await signUp(formData)
-        console.log('Sign-up result:', result)
 
         if (result.success) {
           toast.success('Account created successfully')
