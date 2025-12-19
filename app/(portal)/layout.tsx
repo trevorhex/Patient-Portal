@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { Navigation } from './components/Navigation'
 
-export default function DashboardLayout({ children }: { children: ReactNode }) {
+export default function PortalLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen">
       <Navigation />
