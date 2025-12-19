@@ -15,7 +15,7 @@ const initialState: ActionResponse = {
   errors: undefined
 }
 
-export default function LogInPage() {
+export default function LoginPage() {
   const router = useRouter()
 
   const formData = useActionState<ActionResponse, FormData>(
