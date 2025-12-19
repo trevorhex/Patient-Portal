@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
 import { verifyPassword, createSession, createUser, deleteSession } from '@/lib/session'
-import { getCurrentUser, getUserByEmail, USER_BY_ID_CACHE_TAG } from '@/lib/dal'
+import { getAuthenticatedUser, getUserByEmail, USER_BY_ID_CACHE_TAG } from '@/dal/user'
 import { ROUTES } from '@/config/routes'
 
 const LogInSchema = z.object({
@@ -148,7 +148,7 @@ export const signUp = async (formData: FormData): Promise<ActionResponse> => {
 }
 
 export const logOut = async (): Promise<void> => {
-  const user = await getCurrentUser()
+  const user = await getAuthenticatedUser()
   try {
     await deleteSession()
   } catch (e) {

@@ -14,6 +14,7 @@ export interface JWTPayload {
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET)
 const JWT_EXPIRATION = '7d'
 const REFRESH_THRESHOLD = 24 * 60 * 60 // 24 hours
+const AUTH_TOKEN = 'auth_token'
 
 export const hashPassword = async (password: string) => hash(password, 10)
 
@@ -73,7 +74,7 @@ export const createSession = async (userId: string) => {
 
     const cookieStore = await cookies()
     cookieStore.set({
-      name: 'auth_token',
+      name: AUTH_TOKEN,
       value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -92,7 +93,7 @@ export const createSession = async (userId: string) => {
 export const getSession = cache(async () => {
   try {
     const cookieStore = await cookies()
-    const token = cookieStore.get('auth_token')?.value
+    const token = cookieStore.get(AUTH_TOKEN)?.value
 
     if (!token) return null
     const payload = await verifyJWT(token)
@@ -111,5 +112,5 @@ export const getSession = cache(async () => {
 
 export const deleteSession = async () => {
   const cookieStore = await cookies()
-  cookieStore.delete('auth_token')
+  cookieStore.delete(AUTH_TOKEN)
 }

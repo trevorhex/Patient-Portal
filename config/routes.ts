@@ -18,6 +18,7 @@ interface Routes {
     edit: RouteFunction
     view: RouteFunction
   }
+  api: RouteProps
 }
 
 export const ROUTES: Routes = {
@@ -46,5 +47,6 @@ export const ROUTES: Routes = {
     new: { href: '/issues/new' },
     edit: (id: number | string) => ({ href: `/issues/${id}/edit` }),
     view: (id: number | string) => ({ href: `/issues/${id}` })
-  }
+  },
+  api: { href: '/api' }
 }

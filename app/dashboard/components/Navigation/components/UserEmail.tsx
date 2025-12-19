@@ -1,10 +1,10 @@
 import { Suspense } from 'react'
-import { getCurrentUser } from '@/lib/dal'
+import { getAuthenticatedUser } from '@/dal/user'
 import { UserIcon } from 'lucide-react'
 import { SignOutButton } from './SignOutButton'
 
 const UserEmailComponent = async () => {
-  const user = await getCurrentUser()
+  const user = await getAuthenticatedUser()
 
   return (
     <div className="space-y-1">

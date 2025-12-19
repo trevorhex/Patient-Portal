@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { getIssues } from '@/lib/dal'
+import { getIssues } from '@/dal/issue'
 import { NoResults } from './components/NoResults'
 import { IssuesTable, TableHeader } from './components/IssuesTable'
 

@@ -1,8 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import { Badge } from '@/app/components/Badge'
 import { formatRelativeTime } from '@/lib/utils'
 import { ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/schema'
-import { Issue, Status, Priority } from '@/types/Issue'
+import { Issue, Status, Priority } from '@/types/issue'
 import { ROUTES } from '@/config/routes'
 
 export interface IssuesTableProps { issues: Issue[] }
