@@ -1,10 +1,10 @@
 import { PortalLayout } from '../components/PortalLayout'
-import { Wizard } from './components/Wizard'
+import { Profile } from './components/Profile'
 
 export default function PatientProfilePage() {
   return (
     <PortalLayout heading="Patient Profile">
-      <Wizard />
+      <Profile />
     </PortalLayout>
   )
 }

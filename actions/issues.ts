@@ -4,7 +4,8 @@ import { revalidateTag, revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
-import { issues, status, priority } from '@/db/schema'
+import { issues } from '@/db/schema'
+import { issueStatus, issuePriority } from '@/db/types'
 import { ISSUES_BY_USER_ID_CACHE_TAG, USER_ISSUE_BY_ID_CACHE_TAG } from '@/dal/issue'
 import { getAuthenticatedUser } from '@/dal/user'
 import { ROUTES } from '@/config/routes'
@@ -16,9 +17,9 @@ const IssueSchema = z.object({
   description: z.string()
     .optional()
     .nullable(),
-  status: z.enum(status,
+  status: z.enum(issueStatus,
     { errorMap: () => ({ message: 'Please select a valid status' }) }),
-  priority: z.enum(priority,
+  priority: z.enum(issuePriority,
     { errorMap: () => ({ message: 'Please select a valid priority' }) }),
   userId: z.string()
     .min(1, 'User ID is required')
@@ -111,7 +112,7 @@ export const updateIssue = async (id: number, data: Partial<IssueData>): Promise
 
       revalidateTag(`${USER_ISSUE_BY_ID_CACHE_TAG}${user.id}-${id}`, 'max')
       revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user.id}`, 'max')
-      revalidatePath(ROUTES.dashboard.href)
+      revalidatePath(ROUTES.issues.base.href)
     }
 
     return { success: true, message: 'Issue updated successfully' }

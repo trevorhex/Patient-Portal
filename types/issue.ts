@@ -1,4 +1,4 @@
-import * as Schema from '@/db/schema'
+import * as Schema from '@/db/types'
 import { User } from './user'
 
 export type Issue = Schema.Issue
