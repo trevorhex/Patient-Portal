@@ -12,6 +12,7 @@ interface Routes {
     signup: RouteProps
   }
   dashboard: RouteProps
+  wizard: RouteProps
   issues: {
     base: RouteProps
     new: RouteProps
@@ -41,10 +42,11 @@ export const ROUTES: Routes = {
     login: { name: 'Log in', href: '/login' },
     signup: { name: 'Sign up', href: '/signup' }
   },
-  dashboard: { href: '/dashboard' },
+  dashboard: { name: 'Dashboard', href: '/dashboard' },
+  wizard: { name: 'Setup Wizard', href: '/set-up' },
   issues: {
-    base: { href: '/issues' },
-    new: { href: '/issues/new' },
+    base: { name: 'Issues', href: '/issues' },
+    new: { name: 'New Issue', href: '/issues/new' },
     edit: (id: number | string) => ({ href: `/issues/${id}/edit` }),
     view: (id: number | string) => ({ href: `/issues/${id}` })
   },

@@ -14,11 +14,11 @@ export const IssueLayout = ({ heading, children = null, buttons = null }: IssueL
     <div className="max-w-3xl mx-auto px-4 py-6 md:py-16">
       <div className="mb-6">
         <Link
-          href={ROUTES.dashboard.href}
+          href={ROUTES.issues.base.href}
           className="inline-flex items-center text-sm text-gray-400 hover:text-gray-200 transition-colors"
         >
           <ArrowLeftIcon size={16} className="mr-1" />
-          Back to Dashboard
+          Back to Issues
         </Link>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mt-4">
           {typeof heading === 'string' && <h1 className="text-2xl font-bold">{heading}</h1>}
