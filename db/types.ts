@@ -1,4 +1,4 @@
-import { users, issues } from '@/db/schema'
+import { users, issues, profiles, accountSettings } from '@/db/schema'
 import { InferSelectModel } from 'drizzle-orm'
 
 export const issueStatus = ['backlog', 'todo', 'in_progress', 'done'] as const
@@ -22,3 +22,5 @@ export type IssuePriority = Record<typeof issuePriority[number], { label: string
 
 export type Issue = InferSelectModel<typeof issues>
 export type User = InferSelectModel<typeof users>
+export type Profile = InferSelectModel<typeof profiles>
+export type AcountSetting = InferSelectModel<typeof accountSettings>
