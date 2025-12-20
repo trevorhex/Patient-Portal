@@ -1,23 +1,28 @@
-import { Suspense } from 'react'
+import { Suspense, use } from 'react'
 import { getProfile } from '@/dal/profile'
 import { Card } from '@/app/components/Card'
+import { WizardProvider } from '../Wizard/store/provider'
+import { ProfileProvider } from './store/provider'
+import { ProfileContent } from './components/ProfileContent'
+import { Wizard } from '../Wizard'
 
 const ProfileComponent = async () => {
   const profile = await getProfile()
+  if (!profile) return null 
 
-  return <div />
+  return <ProfileProvider profile={profile}>
+    <WizardProvider>
+      <Wizard />
+      <ProfileContent />
+    </WizardProvider>
+  </ProfileProvider>
 }
 
-const ProfileSkeleton = () => (
-  <Card>
-    <div className="animate-pulse space-y-4">
-      <div className="h-6 bg-zinc-700 rounded w-1/3"></div>
-      <div className="h-4 bg-zinc-700 rounded w-1/2"></div>
-      <div className="h-4 bg-zinc-700 rounded w-2/3"></div>
-      <div className="h-4 bg-zinc-700 rounded w-1/4"></div>
-    </div>
-  </Card>
-)
+const ProfileSkeleton = () => <Card>
+  <div className="animate-pulse space-y-4">
+
+  </div>
+</Card>
 
 export const Profile = async () => <Suspense fallback={<ProfileSkeleton />}>
   <ProfileComponent />

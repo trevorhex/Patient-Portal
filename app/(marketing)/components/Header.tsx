@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { ROUTES } from '@/config/routes'
-import { Button } from '../../components/Button'
+import { AuthButtons } from './AuthButtons'
 
 export const Header = () => (
   <header className="border-b border-zinc-800">
@@ -20,12 +20,7 @@ export const Header = () => (
         </nav>
       </div>
       <div className="flex items-center space-x-6">
-        <Link href={ROUTES.auth.login.href}>
-          <Button variant="outline">{ROUTES.auth.login.name}</Button>
-        </Link>
-        <Link href={ROUTES.auth.signup.href}>
-          <Button>{ROUTES.auth.signup.name}</Button>
-        </Link>
+        <AuthButtons />
       </div>
     </div>
   </header>

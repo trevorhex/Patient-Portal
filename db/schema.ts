@@ -3,6 +3,8 @@ import { pgTable, serial, text, timestamp, pgEnum } from 'drizzle-orm/pg-core'
 
 import { IssueStatus, IssuePriority, issueStatus, issuePriority } from '@/db/types'
 
+export * from '@/db/types'
+
 export const issueStatusEnum = pgEnum('issue_status', issueStatus)
 export const issuePriorityEnum = pgEnum('issue_priority', issuePriority)
 
