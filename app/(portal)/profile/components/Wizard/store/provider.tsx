@@ -3,11 +3,12 @@
 import { createContext, useReducer, ReactNode } from 'react'
 import { WizardState, WizardAction, WizardStatus } from './types'
 import { reducer } from './reducer'
+import { wizardFormPages } from '../config'
 
 export const initialState = {
   status: WizardStatus.NotStarted,
   currentStep: 0,
-  totalSteps: 0
+  totalSteps: wizardFormPages.length
 }
 
 export type WizardContextType = {
