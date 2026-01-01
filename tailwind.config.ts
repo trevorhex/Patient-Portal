@@ -12,6 +12,9 @@ const config = {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
       colors: {
+        base: '#121212',
+        elevated: '#1A1A1A',
+        high: '#222222',
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         primary: {
@@ -26,26 +29,20 @@ const config = {
           800: '#6b21a8',
           900: '#581c87',
           950: '#3b0764',
-        },
-        dark: {
-          base: '#121212',
-          elevated: '#1A1A1A',
-          high: '#222222',
-          border: {
-            subtle: '#2A2A2A',
-            default: '#333333',
-            medium: '#444444',
-            strong: '#555555',
-          },
-        },
+        }
+      },
+      border: {
+        subtle: '#2A2A2A',
+        default: '#333333',
+        medium: '#444444',
+        strong: '#555555'
       },
       boxShadow: {
-        mode: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
-      },
-    },
+        mode: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)'
+      }
+    }
   },
-  plugins: [],
-  darkMode: 'media',
+  plugins: []
 } satisfies Config
 
 export default config
