@@ -39,7 +39,7 @@ export const PricingCard = ({
       'p-8 shadow-sm flex flex-col gap-9',
       highlighted && 'bg-purple-950 border-2 border-purple-600 shadow-md relative'
     )}>
-      {badge && <Badge className="absolute -top-3 -right-3 dark:bg-purple-600 px-3 py-2 dark:text-white">
+      {badge && <Badge className="absolute -top-3 -right-3 bg-purple-600 px-3 py-2 text-white">
         {badge}
       </Badge>}
       <div className="flex flex-col gap-5">
