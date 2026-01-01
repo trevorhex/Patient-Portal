@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
+import { FocusProvider } from '@/hooks/useFocus'
 
 // import { Geist, Geist_Mono } from 'next/font/google'
 // const geistSans = Geist({
@@ -30,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased flex flex-col min-h-screen`}>
         <Toaster position="top-right" />
-        {children}
+        <FocusProvider>{children}</FocusProvider>
       </body>
     </html>
   )
