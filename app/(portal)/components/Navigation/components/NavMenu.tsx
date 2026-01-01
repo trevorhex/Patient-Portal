@@ -9,7 +9,7 @@ export const NavMenu = () => {
   const pathname = usePathname()
 
   return (
-    <nav className="flex-1 space-y-1">
+    <nav className="flex-1 space-y-1" aria-label="Main navigation menu">
       <NavLink
         href={ROUTES.dashboard.href}
         icon={<HomeIcon size={20} />}

@@ -9,7 +9,7 @@ export const Header = () => (
         <Link href="/" className="text-xl font-bold">
           Patient Portal
         </Link>
-        <nav className="hidden md:flex gap-10 md:ml-4">
+        <nav className="hidden md:flex gap-10 md:ml-4" aria-label="Main navigation menu">
           {ROUTES.marketing.product.map(({ href, name }, i) => <Link
             key={i}
             href={href}

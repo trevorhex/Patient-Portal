@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { PlusIcon } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
 import { Button } from '@/app/components/Button'
@@ -9,14 +8,14 @@ export default function IssuesPage() {
   return (
     <PortalLayout
       heading="Issues"
-      buttons={<Link href={ROUTES.issues.new.href}>
-        <Button>
+      buttons={<>
+        <Button href={ROUTES.issues.new.href}>
           <span className="flex items-center">
             <PlusIcon size={18} className="mr-2" />
             New Issue
           </span>
         </Button>
-      </Link>}
+      </>}
     >
       <Issues />
     </PortalLayout>

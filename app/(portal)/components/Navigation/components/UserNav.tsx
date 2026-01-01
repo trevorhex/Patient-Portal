@@ -8,14 +8,14 @@ const UserNavComponent = async () => {
   const user = await getAuthenticatedUser()
 
   return (
-    <div className="space-y-1">
+    <nav className="space-y-1" aria-label="User menu">
       <div className="flex items-center justify-start px-2 py-2">
         <UserIcon size={20} className="text-gray-500 mr-2" />
         <span className="hidden md:inline text-sm text-gray-300 truncate">{user?.email}</span>
       </div>
       <UserMenu />
       <SignOutButton />
-    </div>
+    </nav>
   )
 }
 
