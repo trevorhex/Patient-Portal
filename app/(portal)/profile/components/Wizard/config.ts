@@ -22,6 +22,16 @@ export const wizardFormPages: FormPage[] = [
         label: 'Date of Birth',
         type: 'date',
         placeholder: 'Date of Birth'
+      },
+      {
+        name: 'gender',
+        label: 'Gender',
+        type: 'select',
+        options: [
+          { label: 'Male', value: 'male' },
+          { label: 'Female', value: 'female' },
+          { label: 'Other', value: 'other' }
+        ]
       }
     ]
   },
@@ -40,6 +50,13 @@ export const wizardFormPages: FormPage[] = [
         label: 'Phone Number',
         type: 'tel',
         placeholder: 'Enter your phone number'
+      },
+      {
+        name: 'address',
+        label: 'Address',
+        type: 'textarea',
+        placeholder: 'Enter your address',
+        fieldClassName: 'col-span-2'
       }
     ]
   },

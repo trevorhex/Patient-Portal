@@ -4,6 +4,7 @@ import { Card } from '@/app/components/Card'
 
 const AccountSettingsComponent = async () => {
   const accountSettings = await getAccountSettings()
+  console.log(accountSettings)
 
   return <p>Manage your account settings and preferences here.</p>
 }

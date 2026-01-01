@@ -2,14 +2,12 @@ import type { Config } from 'tailwindcss'
 
 const config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif']
       },
       colors: {
         base: '#121212',
@@ -28,7 +26,7 @@ const config = {
           700: '#7e22ce',
           800: '#6b21a8',
           900: '#581c87',
-          950: '#3b0764',
+          950: '#3b0764'
         }
       },
       border: {

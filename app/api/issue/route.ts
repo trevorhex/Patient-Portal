@@ -3,7 +3,7 @@ import { issues } from '@/db/schema'
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/dal/user'
 
-export const GET = async (req: NextRequest) => {
+export const GET = async () => {
   try {
     const issues = await db.query.issues.findMany({})
     return NextResponse.json({ data: { issues } })

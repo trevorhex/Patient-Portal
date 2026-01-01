@@ -2,7 +2,7 @@ import { ButtonVariant, ButtonSize } from './index'
 
 export const baseStyles = `
   font-medium transition-colors cursor-pointer
-  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-color-white
   disabled:opacity-50 disabled:pointer-events-none
 `
 

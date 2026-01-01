@@ -10,6 +10,7 @@ export type FormField = {
   name: string
   label: string
   placeholder?: string
+  fieldClassName?: string
 } & (
   | {
       type: 'text' | 'email' | 'tel' | 'date'
