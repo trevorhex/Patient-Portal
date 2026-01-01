@@ -2,6 +2,7 @@
 
 import { LogOutIcon } from 'lucide-react'
 import { useTransition } from 'react'
+import { Button } from '@headlessui/react'
 import { logOut } from '@/actions/auth'
 
 export const SignOutButton = () => {
@@ -14,7 +15,7 @@ export const SignOutButton = () => {
   }
 
   return (
-    <button
+    <Button
       onClick={handleSignOut}
       disabled={isPending}
       className={`
@@ -24,6 +25,6 @@ export const SignOutButton = () => {
     >
       <LogOutIcon size={20} className="mr-2" />
       <span>{isPending ? 'Signing out...' : 'Sign Out'}</span>
-    </button>
+    </Button>
   )
 }

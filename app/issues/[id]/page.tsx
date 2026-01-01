@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Edit2Icon } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
@@ -21,11 +20,9 @@ export default async function IssuePage({ params }: IssuePageProps) {
     <IssueLayout
       heading={issue.title}
       buttons={<>
-        <Link href={ROUTES.issues.edit(id).href}>
-          <Button variant="outline" size="sm" className="flex items-center">
-            <Edit2Icon size={16} className="mr-1" /> Edit
-          </Button>
-        </Link>
+        <Button variant="outline" size="sm" className="flex items-center" href={ROUTES.issues.edit(id).href}>
+          <Edit2Icon size={16} className="mr-1" /> Edit
+        </Button>
         <DeleteIssueButton id={parseInt(id)} />
       </>}
     ><>

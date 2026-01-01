@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { PlusIcon } from 'lucide-react'
 import { Button } from '@/app/components/Button'
 import { ROUTES } from '@/config/routes'
@@ -14,13 +13,11 @@ export const NoResults = () => (
     <p className="text-gray-400 mb-6">
       Get started by creating your first issue.
     </p>
-    <Link href={ROUTES.issues.new.href}>
-      <Button>
-        <span className="flex items-center">
-          <PlusIcon size={18} className="mr-2" />
-          Create Issue
-        </span>
-      </Button>
-    </Link>
+    <Button href={ROUTES.issues.new.href}>
+      <span className="flex items-center">
+        <PlusIcon size={18} className="mr-2" />
+        Create Issue
+      </span>
+    </Button>
   </div>
 )

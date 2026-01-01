@@ -5,6 +5,7 @@ export enum WizardStatus {
 }
 
 export enum WizardActionType {
+  Cancel = 'cancel',
   Start = 'start',
   NextStep = 'next-step',
   PreviousStep = 'previous-step',
@@ -20,4 +21,5 @@ export type WizardState = {
 
 export type WizardAction = {
   type: WizardActionType
+  step?: number
 }

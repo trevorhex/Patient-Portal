@@ -1,4 +1,4 @@
-import { FormPage } from '@/types/form'
+import { FormPage } from '@/app/components/Form/types'
 
 export const wizardFormPages: FormPage[] = [
   {
@@ -20,7 +20,8 @@ export const wizardFormPages: FormPage[] = [
       {
         name: 'dateOfBirth',
         label: 'Date of Birth',
-        type: 'date'
+        type: 'date',
+        placeholder: 'Date of Birth'
       }
     ]
   },
