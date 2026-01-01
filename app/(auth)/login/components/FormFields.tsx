@@ -3,7 +3,7 @@ import { FormDataType } from '@/app/components/Form/types'
 
 export type FormFieldsProps = { formData: FormDataType }
 
-export const FormFields = ({ formData: [state, formAction, isPending] }: FormFieldsProps) => <>
+export const FormFields = ({ formData: [state, , isPending] }: FormFieldsProps) => <>
   <FormGroup>
     <FormLabel htmlFor="email">Email</FormLabel>
     <FormInput

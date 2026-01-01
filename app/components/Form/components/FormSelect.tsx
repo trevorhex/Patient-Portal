@@ -1,4 +1,5 @@
 import { forwardRef, SelectHTMLAttributes } from 'react'
+import { Select } from '@headlessui/react'
 import { cn } from '@/lib/utils'
 import { baseStyles } from '../styles'
 
@@ -8,7 +9,7 @@ export interface FormSelectProps extends SelectHTMLAttributes<HTMLSelectElement>
 
 export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
   ({ className, children, options, ...props }, ref) => (
-    <select
+    <Select
       ref={ref}
       className={cn(
         baseStyles,
@@ -24,7 +25,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
             </option>
           ))
         : children}
-    </select>
+    </Select>
   )
 )
 

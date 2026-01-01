@@ -39,7 +39,6 @@ export default function SignupPage() {
     },
     initialState
   )
-  const [state, formAction, isPending] = formData
 
   const SignUpFormFields = () => <FormFields formData={formData} />
 

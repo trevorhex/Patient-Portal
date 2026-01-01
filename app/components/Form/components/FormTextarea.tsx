@@ -1,4 +1,5 @@
 import { forwardRef, TextareaHTMLAttributes } from 'react'
+import { Textarea } from '@headlessui/react'
 import { cn } from '@/lib/utils'
 import { baseStyles } from '../styles'
 
@@ -6,7 +7,7 @@ export type FormTextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>
 
 export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
   ({ className, ...props }, ref) => (
-    <textarea
+    <Textarea
       ref={ref}
       className={cn(
         baseStyles,

@@ -104,7 +104,7 @@ export const updateIssue = async (id: number, data: Partial<IssueData>): Promise
 
     const validatedData = validationResult.data
     const updateData = Object.fromEntries(
-      Object.entries(validatedData).filter(([_, value]) => value !== undefined)
+      Object.entries(validatedData).filter(([, value]) => value !== undefined)
     )
 
     if (Object.keys(updateData).length) {
