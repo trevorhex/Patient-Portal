@@ -55,7 +55,8 @@ export const wizardFormPages: FormPage[] = [
         name: 'address',
         label: 'Address',
         type: 'textarea',
-        placeholder: 'Enter your address'
+        placeholder: 'Enter your address',
+        fieldClassName: 'col-span-2'
       }
     ]
   },

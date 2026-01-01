@@ -6,17 +6,7 @@ import toast from 'react-hot-toast'
 import { getOptions } from '@/db/schema'
 import { Issue, ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/types'
 import { Button } from '@/app/components/Button'
-import {
-  Form,
-  FormGroup,
-  FormLabel,
-  FormInput,
-  FormTextarea,
-  FormSelect,
-  FormError,
-  errorClass,
-  inputErrorClass
-} from '@/app/components/Form'
+import { Form, FormInput, FormTextarea, FormSelect, FormError } from '@/app/components/Form'
 import { Priority, Status } from '@/types/issue'
 import { ROUTES } from '@/config/routes'
 import { createIssue, updateIssue, ActionResponse } from '@/actions/issues'
@@ -74,79 +64,62 @@ export const IssueForm = ({ issue, userId }: IssueFormProps) => {
   const priorityOptions = getOptions(ISSUE_PRIORITY)
 
   return (
-    <Form action={formAction}>
+    <Form action={formAction} className="w-full">
       {state?.message && !state.success && (
         <FormError className="mb-4">
           {state.message}
         </FormError>
       )}
 
-      <FormGroup>
-        <FormLabel htmlFor="title">Title</FormLabel>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormInput
-          id="title"
           name="title"
+          label="Title"
           placeholder="Issue title"
           defaultValue={issue?.title ?? ''}
-          required
           minLength={3}
           maxLength={100}
           disabled={isPending}
-          aria-describedby="title-error"
-          className={state?.errors?.title ? inputErrorClass : ''}
+          invalid={!!state?.errors?.title}
+          hint={state.errors?.title?.[0]}
+          required
+          fieldClassName="md:col-span-2"
         />
-        {state?.errors?.title &&
-          <p id="title-error" className={errorClass}>{state.errors.title[0]}</p>}
-      </FormGroup>
 
-      <FormGroup>
-        <FormLabel htmlFor="description">Description</FormLabel>
         <FormTextarea
-          id="description"
           name="description"
+          label="Description"
           placeholder="Describe the issue..."
-          rows={4}
-          defaultValue={issue?.description || ''}
+          defaultValue={issue?.description ?? ''}
+          rows={6}
           disabled={isPending}
-          aria-describedby="description-error"
-          className={state?.errors?.description ? inputErrorClass : ''}
+          invalid={!!state?.errors?.description}
+          hint={state.errors?.description?.[0]}
+          required
+          fieldClassName="md:col-span-2"
         />
-        {state?.errors?.description &&
-          <p id="description-error" className={errorClass}>{state.errors.description[0]}</p>}
-      </FormGroup>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <FormGroup>
-          <FormLabel htmlFor="status">Status</FormLabel>
-          <FormSelect
-            id="status"
-            name="status"
-            defaultValue={issue?.status || 'backlog'}
-            options={statusOptions}
-            disabled={isPending}
-            required
-            aria-describedby="status-error"
-            className={state?.errors?.status ? inputErrorClass: ''}
-          />
-          {state?.errors?.status &&
-            <p id="status-error" className={errorClass}>{state.errors.status[0]}</p>}
-        </FormGroup>
+        <FormSelect
+          name="status"
+          label="Status"
+          options={statusOptions}
+          defaultValue={issue?.status ?? 'backlog'}
+          disabled={isPending}
+          invalid={!!state?.errors?.status}
+          hint={state.errors?.status?.[0]}
+          required
+        />
 
-        <FormGroup>
-          <FormLabel htmlFor="priority">Priority</FormLabel>
-          <FormSelect
-            id="priority"
-            name="priority"
-            defaultValue={issue?.priority || 'medium'}
-            options={priorityOptions}
-            disabled={isPending}
-            required
-            aria-describedby="priority-error"
-            className={state?.errors?.priority ? inputErrorClass: ''}
-          />
-          {state?.errors?.priority &&
-            <p id="priority-error" className={errorClass}>{state.errors.priority[0]}</p>}
-        </FormGroup>
+        <FormSelect
+          name="priority"
+          label="Priority"
+          options={priorityOptions}
+          defaultValue={issue?.priority ?? 'medium'}
+          disabled={isPending}
+          invalid={!!state?.errors?.priority}
+          hint={state.errors?.priority?.[0]}
+          required
+        />
       </div>
 
       <div className="flex justify-end gap-2 mt-6">

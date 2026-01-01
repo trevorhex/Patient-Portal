@@ -1,54 +1,45 @@
-import { FormGroup, FormLabel, FormInput, errorClass, inputErrorClass } from '@/app/components/Form'
+import { FormInput } from '@/app/components/Form'
 import { FormDataType } from '@/app/components/Form/types'
 
-export type FormFieldsProps = { formData: FormDataType }
+export interface FormFieldsProps {
+  formData: FormDataType
+  values: Record<string, string>
+}
 
-export const FormFields = ({ formData: [state, , isPending] }: FormFieldsProps) => <>
-  <FormGroup>
-    <FormLabel htmlFor="email">Email</FormLabel>
-    <FormInput
-      id="email"
-      name="email"
-      type="email"
-      autoComplete="email"
-      required
-      disabled={isPending}
-      aria-describedby="email-error"
-      className={state?.errors?.email ? inputErrorClass : ''}
-    />
-    {state?.errors?.email &&
-      <p id="email-error" className={errorClass}>{state.errors.email[0]}</p>}
-  </FormGroup>
+export const FormFields = ({ formData: [state, , isPending], values }: FormFieldsProps) => <>
+  <FormInput
+    type="email"
+    name="email"
+    autoComplete="email"
+    label="Email"
+    defaultValue={values.email ?? ''}
+    disabled={isPending}
+    invalid={!!state?.errors?.email}
+    hint={state.errors?.email?.[0]}
+    required
+  />
 
-  <FormGroup>
-    <FormLabel htmlFor="password">Password</FormLabel>
-    <FormInput
-      id="password"
-      name="password"
-      type="password"
-      autoComplete="new-password"
-      required
-      disabled={isPending}
-      aria-describedby="password-error"
-      className={state?.errors?.password ? inputErrorClass : ''}
-    />
-    {state?.errors?.password &&
-      <p id="password-error" className={errorClass}>{state.errors.password[0]}</p>}
-  </FormGroup>
+  <FormInput
+    type="password"
+    name="password"
+    autoComplete="new-password"
+    label="Password"
+    defaultValue={values.password ?? ''}
+    disabled={isPending}
+    invalid={!!state?.errors?.password}
+    hint={state.errors?.password?.[0]}
+    required
+  />
 
-  <FormGroup>
-    <FormLabel htmlFor="confirmPassword">Confirm Password</FormLabel>
-    <FormInput
-      id="confirmPassword"
-      name="confirmPassword"
-      type="password"
-      autoComplete="new-password"
-      required
-      disabled={isPending}
-      aria-describedby="confirmPassword-error"
-      className={state?.errors?.confirmPassword ? inputErrorClass : ''}
-    />
-    {state?.errors?.confirmPassword &&
-      <p id="confirmPassword-error" className={errorClass}>{state.errors.confirmPassword[0]}</p>}
-  </FormGroup>
+  <FormInput
+    type="password"
+    name="confirmPassword"
+    autoComplete="new-password"
+    label="Confirm Password"
+    defaultValue={values.confirmPassword ?? ''}
+    disabled={isPending}
+    invalid={!!state?.errors?.confirmPassword}
+    hint={state.errors?.confirmPassword?.[0]}
+    required
+  />
 </>

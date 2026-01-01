@@ -25,7 +25,7 @@ const IssueComponent = async ({ params }: IssueSuspenseProps) => {
   return <IssueForm userId={user.id} issue={issue} />
 }
 
-export const IssueSuspense = (props: IssueSuspenseProps) => <Card>
+export const IssueSuspense = (props: IssueSuspenseProps) => <Card className="w-full">
   <Suspense fallback={<IssueFormSkeleton />}>
     <IssueComponent {...props} />
   </Suspense>

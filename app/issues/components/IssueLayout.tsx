@@ -11,7 +11,7 @@ export interface IssueLayoutProps {
 
 export const IssueLayout = ({ heading, children = null, buttons = null }: IssueLayoutProps) => {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-6 md:py-16">
+    <div className="w-full max-w-3xl mx-auto px-4 py-6 md:py-16">
       <div className="mb-6">
         <Link
           href={ROUTES.issues.base.href}

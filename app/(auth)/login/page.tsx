@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
@@ -17,13 +17,21 @@ const initialState: ActionResponse = {
 
 export default function LoginPage() {
   const router = useRouter()
+  const [formValues, setFormValues] = useState<Record<string, string>>({})
 
   const formData = useActionState<ActionResponse, FormData>(
     async (prevState: ActionResponse, formData: FormData) => {
       try {
+        const values = {
+          email: formData.get('email') as string,
+          password: formData.get('password') as string
+        }
+        setFormValues(values)
+
         const result = await logIn(formData)
 
         if (result.success) {
+          setFormValues({})
           toast.success('Signed in successfully')
           router.refresh()
           router.push(ROUTES.dashboard.href)
@@ -41,7 +49,7 @@ export default function LoginPage() {
     initialState
   )
 
-  const LogInFormFields = () => <FormFields formData={formData} />
+  const LogInFormFields = () => <FormFields formData={formData} values={formValues} />
 
   return (
     <AuthPage
