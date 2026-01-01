@@ -40,7 +40,6 @@ export default function LoginPage() {
     },
     initialState
   )
-  const [state, formAction, isPending] = formData
 
   const LogInFormFields = () => <FormFields formData={formData} />
 

@@ -1,10 +1,11 @@
 'use client'
 
 import { use } from 'react'
-import { ProfileContext } from '../store/provider'
+import { ProfileContext } from '../../../store'
 
 export const ProfileContent = () => {
-  const { profile, state } = use(ProfileContext)
+  const { profile } = use(ProfileContext)
+  console.log('Profile:', profile)
 
   return (
     <div />

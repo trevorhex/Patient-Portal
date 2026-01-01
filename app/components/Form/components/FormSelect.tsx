@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils'
 import { baseStyles } from '../styles'
 
 export interface FormSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  options?: Array<{ label: string; value: string }>
+  options?: Array<{ label: string; value: string | number }>
 }
 
 export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(

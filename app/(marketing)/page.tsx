@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { ROUTES } from '@/config/routes'
 import { Button } from '../components/Button'
 
@@ -13,9 +12,9 @@ export default function LandingPage() {
         Making healthcare accessible to all.
       </p>
       <div className="mt-10">
-        <Link href={ROUTES.auth.signup.href}>
-          <Button size="lg">Get Started</Button>
-        </Link>
+        <Button size="lg" href={ROUTES.auth.signup.href}>
+          Get Started
+        </Button>
       </div>
     </section>
   )

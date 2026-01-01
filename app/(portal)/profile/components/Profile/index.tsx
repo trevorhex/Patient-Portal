@@ -1,8 +1,7 @@
-import { Suspense, use } from 'react'
+import { Suspense } from 'react'
 import { getProfile } from '@/dal/profile'
 import { Card } from '@/app/components/Card'
-import { WizardProvider } from '../Wizard/store/provider'
-import { ProfileProvider } from './store/provider'
+import { ProfileProvider } from '../../store'
 import { ProfileContent } from './components/ProfileContent'
 import { Wizard } from '../Wizard'
 
@@ -10,12 +9,12 @@ const ProfileComponent = async () => {
   const profile = await getProfile()
   if (!profile) return null 
 
-  return <ProfileProvider profile={profile}>
-    <WizardProvider>
+  return (
+    <ProfileProvider profile={profile}>
       <Wizard />
       <ProfileContent />
-    </WizardProvider>
-  </ProfileProvider>
+    </ProfileProvider>
+  )
 }
 
 const ProfileSkeleton = () => <Card>

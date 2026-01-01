@@ -1,9 +1,10 @@
 'use client'
+
 import { use } from 'react'
-import { WizardContext } from '../store/provider' 
+import { ProfileContext } from '../../../store' 
 
 export const Progress = () => {
-  const { state: { totalSteps, currentStep } } = use(WizardContext)
+  const { totalSteps, currentStep } = use(ProfileContext).wizard.state
   return (
     <div className="flex justify-center">
       <div className="inline-flex relative items-center gap-4">

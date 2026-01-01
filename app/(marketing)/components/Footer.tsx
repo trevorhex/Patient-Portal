@@ -10,12 +10,12 @@ const FooterLink = ({ name, ...props }: RouteProps) => <li>
   </Link>
 </li>
 
-const FooterLinkList = ({ title, links }: FooterLinkListProps) => <div>
+const FooterLinkList = ({ title, links }: FooterLinkListProps) => <nav aria-label={`${title} links`}>
   <h3 className="text-sm font-semibold mb-4">{title}</h3>
   <ul className="space-y-2">
     {links.map((link, i) => <FooterLink key={i} {...link} />)}
   </ul>
-</div>
+</nav>
 
 export const Footer = () => <FooterWrapper>
   <div className="container mx-auto px-4 py-8">

@@ -21,9 +21,9 @@ export default function PricingPage() {
         <p className="text-lg text-gray-400 mb-8">
           Contact our sales team to discuss your specific requirements.
         </p>
-        <a href="mailto:sales@patientportal.med">
-          <Button size="lg">Contact Sales</Button>
-        </a>
+        <Button size="lg" href="mailto:sales@patientportal.med">
+          Contact Sales
+        </Button>
       </Card>
     </></MarketingLayout>
   )

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { CheckCircle2, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/app/components/Button'
@@ -65,9 +64,13 @@ export const PricingCard = ({
           </li>
         ))}
       </ul>
-      <Link href={buttonLink} className={disabled ? 'pointer-events-none' : ''}>
-        <Button variant={highlighted ? 'primary' : 'outline'} fullWidth>{buttonText}</Button>
-      </Link>
+      <Button
+        variant={highlighted ? 'primary' : 'outline'}
+        href={buttonLink}
+        fullWidth
+        disabled={disabled}
+        className={`text-center ${disabled ? 'pointer-events-none' : ''}`}
+      >{buttonText}</Button>
     </Card>
   )
 }
