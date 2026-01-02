@@ -4,12 +4,12 @@ import { KeyboardEvent } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { Button, ButtonProps } from '@/app/components/Button'
 import { useFocus } from '@/hooks/useFocus'
-import { MAIN } from '@/app/issues/components/IssueLayout'
+import { FORM } from '@/app/issues/components/IssueForm'
 
 export const IssueButton = ({ href, children }: ButtonProps) => {
   const { focusOnKeyDown } = useFocus()
   
-  const handleKeyDown = (e: KeyboardEvent) => focusOnKeyDown(e, MAIN, href)
+  const handleKeyDown = (e: KeyboardEvent) => focusOnKeyDown(e, FORM, href)
 
   return (
     <Button href={href} onKeyDown={handleKeyDown}>
