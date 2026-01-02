@@ -2,10 +2,10 @@
 
 import { useActionState, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
 
 import { logIn, ActionResponse } from '@/actions/auth'
 import { ROUTES } from '@/config/routes'
+import { useToast } from '@/hooks/useToast'
 import { AuthPage } from '../components/AuthPage'
 import { FormFields } from './components/FormFields'
 
@@ -18,6 +18,8 @@ const initialState: ActionResponse = {
 export default function LoginPage() {
   const router = useRouter()
   const [formValues, setFormValues] = useState<Record<string, string>>({})
+  const { showSuccess } = useToast()
+
 
   const formData = useActionState<ActionResponse, FormData>(
     async (prevState: ActionResponse, formData: FormData) => {
@@ -32,7 +34,7 @@ export default function LoginPage() {
 
         if (result.success) {
           setFormValues({})
-          toast.success('Signed in successfully')
+          showSuccess('Signed in successfully')
           router.refresh()
           router.push(ROUTES.dashboard.href)
         }

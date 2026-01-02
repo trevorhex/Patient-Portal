@@ -3,10 +3,10 @@
 import { useRef, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { Trash2Icon } from 'lucide-react'
-import toast from 'react-hot-toast'
 import { Button } from '@/app/components/Button'
 import { deleteIssue } from '@/actions/issues'
 import { ROUTES } from '@/config/routes'
+import { useToast } from '@/hooks/useToast'
 
 interface DeleteIssueButtonProps { id: number }
 
@@ -16,6 +16,7 @@ export const DeleteIssueButton = ({ id }: DeleteIssueButtonProps) => {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
   const [showConfirm, setShowConfirm] = useState(false)
+  const { showSuccess, showError } = useToast()
 
   const handleVerifyDelete = () => {
     setShowConfirm(true)
@@ -34,11 +35,11 @@ export const DeleteIssueButton = ({ id }: DeleteIssueButtonProps) => {
 
         if (!result.success) throw new Error(result.error || 'Failed to delete issue')
 
-        toast.success('Issue deleted successfully')
+        showSuccess('Issue deleted successfully')
         router.refresh()
         router.push(ROUTES.issues.base.href)
       } catch (e) {
-        toast.error('Failed to delete issue')
+        showError('Failed to delete issue')
         console.error('Error deleting issue:', e)
       }
     })
