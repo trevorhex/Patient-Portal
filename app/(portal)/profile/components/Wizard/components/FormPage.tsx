@@ -16,7 +16,7 @@ export const FormPage = () => {
   }, [currentStep])
 
   return (
-    <Card ref={cardRef} tabIndex={0} aria-labelledby="wizard-form-page-title" className="space-y-8 py-8">
+    <Card ref={cardRef} tabIndex={-1} aria-labelledby="wizard-form-page-title" className="space-y-8 py-8">
       <div className="text-center" id="wizard-form-page-title">
         <h2 className="text-xl font-bold mb-5">{page.title}</h2>
         <p>{page.description}</p>
