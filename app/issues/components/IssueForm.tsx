@@ -1,7 +1,7 @@
 'use client'
 
-import { useActionState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useActionState, useRef, useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { getOptions } from '@/db/schema'
 import { Issue, ISSUE_STATUS, ISSUE_PRIORITY } from '@/db/types'
@@ -10,6 +10,9 @@ import { Form, FormInput, FormTextarea, FormSelect, FormError } from '@/app/comp
 import { Priority, Status } from '@/types/issue'
 import { ROUTES } from '@/config/routes'
 import { createIssue, updateIssue, ActionResponse } from '@/actions/issues'
+import { useFocus } from '@/hooks/useFocus'
+
+export const FORM = 'issue-form'
 
 export interface IssueFormProps {
   issue?: Issue
@@ -24,7 +27,10 @@ const initialState: ActionResponse = {
 }
 
 export const IssueForm = ({ issue, userId }: IssueFormProps) => {
+  const formRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const pathname = usePathname()
+  const { focusElement, shouldFocus, resetFocus } = useFocus()
   const isEditing = !!issue
 
   const [state, formAction, isPending] = useActionState<ActionResponse, FormData>(
@@ -60,6 +66,13 @@ export const IssueForm = ({ issue, userId }: IssueFormProps) => {
     initialState
   )
 
+  useEffect(() => {
+    if (formRef.current && shouldFocus && focusElement === FORM) {
+      formRef.current.focus()
+      resetFocus()
+    }
+  }, [pathname, shouldFocus, resetFocus, focusElement])
+
   const statusOptions = getOptions(ISSUE_STATUS)
   const priorityOptions = getOptions(ISSUE_PRIORITY)
 
@@ -71,7 +84,7 @@ export const IssueForm = ({ issue, userId }: IssueFormProps) => {
         </FormError>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4" ref={formRef}>
         <FormInput
           name="title"
           label="Title"

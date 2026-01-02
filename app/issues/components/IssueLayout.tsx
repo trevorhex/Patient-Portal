@@ -1,13 +1,7 @@
-'use client'
-
-import { ReactNode, useRef, useEffect } from 'react'
+import { ReactNode } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { ArrowLeftIcon } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
-import { useFocus } from '@/hooks/useFocus'
-
-export const MAIN = 'main-issue'
 
 export interface IssueLayoutProps {
   children?: ReactNode
@@ -16,19 +10,8 @@ export interface IssueLayoutProps {
 }
 
 export const IssueLayout = ({ heading, children = null, buttons = null }: IssueLayoutProps) => {
-  const mainRef = useRef<HTMLElement>(null)
-  const pathname = usePathname()
-  const { focusElement, shouldFocus, resetFocus } = useFocus()
-
-  useEffect(() => {
-    if (mainRef.current && shouldFocus && focusElement === MAIN) {
-      mainRef.current.focus()
-      resetFocus()
-    }
-  }, [pathname, shouldFocus, resetFocus, focusElement])
-
   return (
-    <main ref={mainRef} className="w-full max-w-3xl mx-auto px-4 py-6 md:py-16">
+    <main className="w-full max-w-3xl mx-auto px-4 py-6 md:py-16">
       <div className="mb-6">
         <Link
           href={ROUTES.issues.base.href}
