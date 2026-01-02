@@ -2,7 +2,6 @@
 
 import { KeyboardEvent, ReactNode } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useFocus } from '@/hooks/useFocus'
 import { MAIN } from '../../PortalMain'
@@ -16,16 +15,9 @@ export interface NavLinkProps {
 }
 
 export const NavLink = ({ href, icon, label, isActive, size }: NavLinkProps) => {
-  const router = useRouter()
-  const { triggerFocus } = useFocus()
+  const { focusOnKeyDown } = useFocus()
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (['Enter', ' '].includes(e.key)) {
-      e.preventDefault()
-      triggerFocus?.(MAIN)
-      router.push(href)
-    }
-  }
+  const handleKeyDown = (e: KeyboardEvent) => focusOnKeyDown(e, MAIN, href)
 
   return (
     <Link
