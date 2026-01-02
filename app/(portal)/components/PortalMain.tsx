@@ -4,7 +4,7 @@ import { ReactNode, useRef, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { useFocus } from '@/hooks/useFocus'
 
-export const MAIN = 'main'
+export const MAIN = 'main-portal'
 
 export const PortalMain = ({ children }: { children: ReactNode }) => {
   const mainRef = useRef<HTMLElement>(null)

@@ -12,7 +12,7 @@ export const FormPage = () => {
   const cardRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (cardRef.current) cardRef.current.focus()
+    cardRef.current?.focus()
   }, [currentStep])
 
   return (

@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react'
+import { forwardRef, Ref, KeyboardEvent, ButtonHTMLAttributes } from 'react'
 import Link from 'next/link'
 import { Button as UIButton } from '@headlessui/react'
 import { cn } from '@/lib/utils'
@@ -14,38 +14,53 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean
   fullWidth?: boolean,
   href?: string
+  onKeyDown?: (e: KeyboardEvent) => void
 }
 
-export const Button = ({
-  className,
-  children,
-  variant = 'primary',
-  size = 'md',
-  isLoading = false,
-  disabled = false,
-  fullWidth = false,
-  href,
-  ...props
-}: ButtonProps) => {
-  const classNames = cn(
-    baseStyles,
-    variants[variant],
-    sizes[size],
-    isLoading && 'opacity-70 cursor-not-allowed',
-    fullWidth && 'w-full',
-    href && 'inline-block',
-    className
-  )
+export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+  ({
+    className,
+    children,
+    variant = 'primary',
+    size = 'md',
+    isLoading = false,
+    disabled = false,
+    fullWidth = false,
+    href,
+    onKeyDown,
+    ...props
+  }, ref) => {
+    const classNames = cn(
+      baseStyles,
+      variants[variant],
+      sizes[size],
+      isLoading && 'opacity-70 cursor-not-allowed',
+      fullWidth && 'w-full',
+      href && 'inline-block',
+      className
+    )
 
-  const content = isLoading ? <LoadingWheel /> : children
+    const content = isLoading ? <LoadingWheel /> : children
 
-  if (href) {
-    return <Link href={href} className={classNames}>{content}</Link>
-  }
-  
-  return (
-    <UIButton className={classNames} disabled={disabled || isLoading} {...props}>
-      {isLoading ? <LoadingWheel /> : children}
-    </UIButton>
-  )
-}
+    if (href) {
+      return <Link
+        ref={ref as Ref<HTMLAnchorElement>}
+        href={href} className={classNames}
+        onKeyDown={onKeyDown}
+      >{content}</Link>
+    }
+    
+    return (
+      <UIButton
+        ref={ref as Ref<HTMLButtonElement>}
+        className={classNames}
+        disabled={disabled || isLoading}
+        {...props}
+      >
+        {isLoading ? <LoadingWheel /> : children}
+      </UIButton>
+    )
+  } 
+)
+
+Button.displayName = 'Button'
