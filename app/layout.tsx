@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
-import { FocusProvider } from '@/hooks/useFocus'
 
 // import { Geist, Geist_Mono } from 'next/font/google'
 // const geistSans = Geist({
@@ -34,7 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
           position="top-right"
           toastOptions={{ ariaProps: { role: 'status', 'aria-live': 'polite' } }}
         />
-        <FocusProvider>{children}</FocusProvider>
+        {children}
       </body>
     </html>
   )

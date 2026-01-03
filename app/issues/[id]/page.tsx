@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation'
+import { Edit2Icon } from 'lucide-react'
 import { ROUTES } from '@/config/routes'
 import { getIssue } from '@/dal/issue'
-import { EditIssueButton } from './components/EditIssueButton'
+import { Button } from '@/app/components/Button'
 import { IssueLayout } from '../components/IssueLayout'
 import { DeleteIssueButton } from './components/DeleteIssueButton'
 import { IssueStatus } from './components/IssueStatus'
@@ -19,7 +20,9 @@ export default async function IssuePage({ params }: IssuePageProps) {
     <IssueLayout
       heading={issue.title}
       buttons={<>
-        <EditIssueButton href={ROUTES.issues.edit(id).href} />
+        <Button variant="outline" size="sm" className="flex items-center" href={ROUTES.issues.edit(id).href}>
+          <Edit2Icon size={16} className="mr-1" /> Edit
+        </Button>
         <DeleteIssueButton id={parseInt(id)} />
       </>}
     ><>
