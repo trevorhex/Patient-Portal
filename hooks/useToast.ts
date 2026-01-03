@@ -4,9 +4,13 @@ export const useToast = () => {
   const showSuccess = (message: string) => {
     toast.success(message, {
       ariaProps: {
-        role: 'alert',
-        'aria-live': 'assertive'
+        role: 'status',
+        'aria-live': 'polite'
       },
+      style: {
+        background: '#10b981',
+        color: '#fff'
+      }
     })
   }
 
@@ -16,6 +20,10 @@ export const useToast = () => {
         role: 'alert',
         'aria-live': 'assertive'
       },
+      style: {
+        background: '#ef4444',
+        color: '#fff'
+      }
     })
   }
 
@@ -26,20 +34,24 @@ export const useToast = () => {
         role: 'status',
         'aria-live': 'polite'
       },
+      style: {
+        background: '#363636',
+        color: '#fff'
+      }
     })
   }
 
   const showWarning = (message: string) => {
     toast(message, {
       icon: '⚠️',
+      ariaProps: {
+        role: 'status',
+        'aria-live': 'polite'
+      },
       style: {
         background: '#f59e0b',
-        color: '#fff',
-      },
-      ariaProps: {
-        role: 'alert',
-        'aria-live': 'assertive'
-      },
+        color: '#fff'
+      }
     })
   }
 

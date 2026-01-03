@@ -1,10 +1,8 @@
 'use client'
 
-import { KeyboardEvent, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import { useFocus } from '@/hooks/useFocus'
-import { MAIN } from '../../PortalMain'
 
 export interface NavLinkProps {
   href: string
@@ -15,10 +13,6 @@ export interface NavLinkProps {
 }
 
 export const NavLink = ({ href, icon, label, isActive, size }: NavLinkProps) => {
-  const { focusOnKeyDown } = useFocus()
-
-  const handleKeyDown = (e: KeyboardEvent) => focusOnKeyDown(e, MAIN, href)
-
   return (
     <Link
       href={href}
@@ -29,7 +23,6 @@ export const NavLink = ({ href, icon, label, isActive, size }: NavLinkProps) => 
           ? 'bg-purple-600 text-white hover:bg-purple-700'
           : 'text-gray-300 hover:bg-zinc-800'
       )}
-      onKeyDown={handleKeyDown}
     >
       <span className={cn('mr-3', isActive ? 'text-white' : 'text-gray-500')}>{icon}</span>
       <span className="hidden md:inline">{label}</span>
