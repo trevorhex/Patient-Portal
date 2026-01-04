@@ -17,7 +17,7 @@ export const NavLink = ({ href, icon, label, isActive, size }: NavLinkProps) => 
     <Link
       href={href}
       className={cn(
-        'flex items-center px-2 rounded-md group transition-colors',
+        'flex items-center px-2 rounded-md transition-colors',
         size === 'sm' ? 'py-2 text-sm' : 'py-3 text-base',
         isActive
           ? 'bg-purple-600 text-white hover:bg-purple-700'

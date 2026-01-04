@@ -56,9 +56,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
         className={classNames}
         disabled={disabled || isLoading}
         {...props}
-      >
-        {isLoading ? <LoadingWheel /> : children}
-      </UIButton>
+      >{content}</UIButton>
     )
   } 
 )
