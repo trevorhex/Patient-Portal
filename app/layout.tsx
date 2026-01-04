@@ -29,10 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en">
       <body className={`${inter.variable} font-sans antialiased flex flex-col min-h-screen`}>
-        <Toaster
-          position="top-right"
-          toastOptions={{ ariaProps: { role: 'status', 'aria-live': 'polite' } }}
-        />
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>

@@ -16,7 +16,7 @@ export const variants: { [K in ButtonVariant]: string } = {
 }
 
 export const sizes: { [K in ButtonSize]: string } = {
-  sm: 'px-4 py-2 text-xs rounded-md',
-  md: 'px-5 py-3 text-sm rounded-md',
-  lg: 'px-6 py-3 text-base rounded-lg'
+  sm: 'px-4! py-2! text-xs rounded-md',
+  md: 'px-5! py-3! text-sm rounded-md',
+  lg: 'px-6! py-3! text-base rounded-lg'
 }

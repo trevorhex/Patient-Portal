@@ -14,7 +14,7 @@ export const FormError = ({ className, children, ...props }: FormErrorProps) => 
       className
     )}
     {...props}
-    area-live="polite"
+    role="alert"
   >
     {children}
   </p>

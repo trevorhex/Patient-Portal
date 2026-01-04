@@ -53,7 +53,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
               <ChevronDownIcon
                 size={16}
                 className={cn(
-                  'group pointer-events-none absolute top-2.5 right-2.5 text-zinc-400 transition-transform',
+                  'pointer-events-none absolute top-2.5 right-2.5 text-zinc-400 transition-transform',
                   open && 'rotate-180'
                 )}
                 aria-hidden="true"
@@ -68,7 +68,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
                     <ListboxOption key={option.value} value={option.value} as={Fragment}>
                       {({ focus, selected }) => (
                         <div className={cn(
-                          'group flex items-center gap-2 px-3 py-1.5 cursor-pointer',
+                          'flex items-center gap-2 px-3 py-1.5 cursor-pointer',
                           focus && 'bg-purple-600'
                         )}>
                           <CheckIcon size={18} className={cn(!selected && 'invisible')} />
