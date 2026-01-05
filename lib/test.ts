@@ -1,4 +1,4 @@
-import { vi} from 'vitest'
+import { vi } from 'vitest'
 
 export const createMockSelect = (resultMock: any[] = []) => ({
   from: vi.fn().mockReturnValue({

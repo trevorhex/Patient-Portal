@@ -236,11 +236,7 @@ describe('issues actions', () => {
   
       const result = await createIssue(validIssueData)
   
-      expect(result).toEqual({
-        success: false,
-        message: 'An error occurred while creating the issue',
-        error: 'Failed to create issue'
-      })
+      expect(result).toEqual({ success: false, message: 'An error occurred while creating the issue', error: 'Failed to create issue' })
       expect(consoleSpy).toHaveBeenCalledWith('Error creating issue:', expect.any(Error))
       expect(mockDb.insert).not.toHaveBeenCalled()
       expect(mockRevalidateTag).not.toHaveBeenCalled()
