@@ -14,6 +14,12 @@ const eslintConfig = [
     },
   },
   {
+    files: ['**/*.test.{ts,tsx,js,jsx}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off'
+    }
+  },
+  {
     ignores: [
       '.next/**',
       'out/**',
