@@ -37,6 +37,7 @@ export type ActionResponse = {
 export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
   try {
     const user = await getAuthenticatedUser()
+    if (!user) throw new Error('Must be logged in')
 
     const validationResult = IssueSchema.safeParse(data)
     if (!validationResult.success) {
@@ -72,6 +73,7 @@ export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
 export const updateIssue = async (id: number, data: Partial<IssueData>): Promise<ActionResponse> => {
   try {
     const user = await getAuthenticatedUser()
+    if (!user) throw new Error('Must be logged in')
 
     const IssueSchemaPartial = IssueSchema.partial()
     const validationResult = IssueSchemaPartial.safeParse(data)
@@ -129,6 +131,7 @@ export const updateIssue = async (id: number, data: Partial<IssueData>): Promise
 export const deleteIssue = async (id: number) => {
   try {
     const user = await getAuthenticatedUser()
+    if (!user) throw new Error('Must be logged in')
 
     const existingIssue = await db.select().from(issues).where(eq(issues.id, id)).limit(1)
     
