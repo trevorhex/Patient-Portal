@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm'
-import { pgTable, serial, text, timestamp, pgEnum } from 'drizzle-orm/pg-core'
+import { pgTable, serial, text, boolean, timestamp, pgEnum } from 'drizzle-orm/pg-core'
 
 import { IssueStatus, IssuePriority, issueStatus, issuePriority } from '@/db/types'
 
@@ -69,8 +69,8 @@ export const accountSettings = pgTable('account_settings', {
   userId: text('user_id')
     .notNull()
     .unique(),
-  notificationsEnabled: text('notifications_enabled')
-    .default('true')
+  notificationsEnabled: boolean('notifications_enabled')
+    .default(true)
     .notNull(),
   createdAt: timestamp('created_at')
     .defaultNow()

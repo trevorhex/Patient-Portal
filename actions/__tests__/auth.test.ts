@@ -56,7 +56,11 @@ describe('Auth Actions', () => {
       const formData = createFormData('', 'password123')
       const result = await logIn(formData)
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { email: ['Email is required', 'Invalid email format'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { email: ['Email is required', 'Invalid email format'] }
+      })
       expect(getUserByEmail).not.toHaveBeenCalled()
     })
 
@@ -64,7 +68,11 @@ describe('Auth Actions', () => {
       const formData = createFormData('invalid-email', 'password123')
       const result = await logIn(formData)
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { email: ['Invalid email format'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { email: ['Invalid email format'] }
+      })
       expect(getUserByEmail).not.toHaveBeenCalled()
     })
 
@@ -72,7 +80,11 @@ describe('Auth Actions', () => {
       const formData = createFormData('test@example.com', '')
       const result = await logIn(formData)
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { password: ['Password is required'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { password: ['Password is required'] }
+      })
       expect(getUserByEmail).not.toHaveBeenCalled()
     })
 
@@ -82,7 +94,11 @@ describe('Auth Actions', () => {
       const formData = createFormData('nonexistent@example.com', 'password123')
       const result = await logIn(formData)
 
-      expect(result).toEqual({ success: false, message: 'Invalid email or password', errors: { email: ['Invalid email or password'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Invalid email or password',
+        errors: { email: ['Invalid email or password'] }
+      })
       expect(verifyPassword).not.toHaveBeenCalled()
     })
 
@@ -93,7 +109,11 @@ describe('Auth Actions', () => {
       const formData = createFormData('test@example.com', 'wrongpassword')
       const result = await logIn(formData)
 
-      expect(result).toEqual({ success: false, message: 'Invalid email or password', errors: { password: ['Invalid email or password'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Invalid email or password',
+        errors: { password: ['Invalid email or password'] }
+      })
       expect(createSession).not.toHaveBeenCalled()
     })
 
@@ -103,7 +123,11 @@ describe('Auth Actions', () => {
       const formData = createFormData('test@example.com', 'password123')
       const result = await logIn(formData)
 
-      expect(result).toEqual({ success: false, message: 'An error occurred while Logging in', error: 'Failed to sign in' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while Logging in',
+        error: 'Failed to sign in'
+      })
     })
   })
 
@@ -134,7 +158,11 @@ describe('Auth Actions', () => {
       const formData = createSignUpFormData('', 'password123', 'password123')
       const result = await signUp(formData)
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { email: ['Email is required', 'Invalid email format'] } })
+      expect(result).toEqual({
+        success: false, message: 'Validation failed',
+        errors: { email: ['Email is required', 'Invalid email format'] }
+      })
+      expect(createUser).not.toHaveBeenCalled()
     })
 
     it('should return validation error for short password', async () => {
@@ -146,6 +174,7 @@ describe('Auth Actions', () => {
         message: 'Validation failed',
         errors: { password: ['Password must be at least 6 characters'] }
       })
+      expect(createUser).not.toHaveBeenCalled()
     })
 
     it('should return validation error for mismatched passwords', async () => {
@@ -157,6 +186,7 @@ describe('Auth Actions', () => {
         message: 'Validation failed',
         errors: { password: ['Passwords don\'t match'], confirmPassword: ['Passwords don\'t match'] }
       })
+      expect(createUser).not.toHaveBeenCalled()
     })
 
     it('should return error for existing user', async () => {
@@ -165,7 +195,11 @@ describe('Auth Actions', () => {
       const formData = createSignUpFormData(mockUser.email, 'password123', 'password123')
       const result = await signUp(formData)
 
-      expect(result).toEqual({ success: false, message: 'User with this email already exists', errors: { email: ['User with this email already exists'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'User with this email already exists',
+        errors: { email: ['User with this email already exists'] }
+      })
       expect(createUser).not.toHaveBeenCalled()
     })
 
@@ -176,7 +210,11 @@ describe('Auth Actions', () => {
       const formData = createSignUpFormData('test@example.com', 'password123', 'password123')
       const result = await signUp(formData)
 
-      expect(result).toEqual({ success: false, message: 'Failed to create user', error: 'Failed to create user' })
+      expect(result).toEqual({
+        success: false,
+        message: 'Failed to create user',
+        error: 'Failed to create user'
+      })
     })
 
     it('should handle unexpected errors gracefully', async () => {
@@ -185,7 +223,11 @@ describe('Auth Actions', () => {
       const formData = createSignUpFormData('test@example.com', 'password123', 'password123')
       const result = await signUp(formData)
 
-      expect(result).toEqual({ success: false, message: 'An error occurred while creating your account', error: 'Failed to create account' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while creating your account',
+        error: 'Failed to create account'
+      })
     })
   })
 
