@@ -7,17 +7,13 @@ export const faqItems: FAQItemProps[] = [
   },
   {
     question: 'What technologies does Patient Portal use?',
-    answer: `
-      Patient Portal is built with Next.js, TypeScript, Tailwind CSS, and uses a PostgreSQL database.
-      It leverages the latest features of Next.js App Router for optimal performance.
-    `
+    answer:
+      'Patient Portal is built with Next.js, TypeScript, Tailwind CSS, and uses a PostgreSQL database. It leverages the latest features of Next.js App Router for optimal performance.'
   },
   {
     question: 'How do I create an account?',
-    answer: `
-      You can create an account by clicking the 'Sign Up' button in the top navigation bar.
-      You'll need to provide an email address and create a password.
-    `
+    answer:
+      'You can create an account by clicking the \'Sign Up\' button in the top navigation bar. You\'ll need to provide an email address and create a password.'
   },
   {
     question: 'Is it free to use?',

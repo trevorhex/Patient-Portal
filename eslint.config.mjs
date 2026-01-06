@@ -16,7 +16,8 @@ const eslintConfig = [
   {
     files: ['**/*.test.{ts,tsx,js,jsx}', '**/test.{ts,tsx,js,jsx}'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off'
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@next/next/no-html-link-for-pages': 'off'
     }
   },
   {

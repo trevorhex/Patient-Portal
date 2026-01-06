@@ -24,6 +24,6 @@ export const AuthButtonsComponent = async () => {
   </>
 }
 
-export const AuthButtons = () => <Suspense fallback={<div className="h-16" />}>
+export const AuthButtons = () => <Suspense fallback={<div className="h-16" role="presentation" />}>
   <AuthButtonsComponent />
 </Suspense>
