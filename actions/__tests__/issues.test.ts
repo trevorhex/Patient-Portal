@@ -10,7 +10,12 @@ import { createIssue, updateIssue, deleteIssue, IssueData } from '../issues'
 
 vi.mock('next/cache', () => ({ revalidateTag: vi.fn(), revalidatePath: vi.fn() }))
 vi.mock('@/db', () => ({
-  db: { insert: vi.fn(), select: vi.fn(), update: vi.fn(), delete: vi.fn() }
+  db: {
+    insert: vi.fn(),
+    select: vi.fn(),
+    update: vi.fn(),
+    delete: vi.fn()
+  }
 }))
 vi.mock('@/dal/user', () => ({ getAuthenticatedUser: vi.fn() }))
 
@@ -71,33 +76,57 @@ describe('issues actions', () => {
     it('should return validation errors for invalid title (too short)', async () => {
       const result = await createIssue({ ...validIssueData, title: 'ab' })
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { title: ['Title must be at least 3 characters'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { title: ['Title must be at least 3 characters'] }
+      })
       expect(mockDb.insert).not.toHaveBeenCalled()
     })
 
     it('should return validation errors for invalid title (too long)', async () => {
       const result = await createIssue({ ...validIssueData, title: 'a'.repeat(101) })
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { title: ['Title must be less than 100 characters'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { title: ['Title must be less than 100 characters'] }
+      })
+      expect(mockDb.insert).not.toHaveBeenCalled()
     })
 
     it('should return validation errors for invalid status', async () => {
       const result = await createIssue({ ...validIssueData, status: 'invalid-status' as any })
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { status: ['Please select a valid status'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { status: ['Please select a valid status'] }
+      })
+      expect(mockDb.insert).not.toHaveBeenCalled()
     })
 
     it('should return validation errors for invalid priority', async () => {
       const result = await createIssue({ ...validIssueData, priority: 'invalid-priority' as any })
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { priority: ['Please select a valid priority'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { priority: ['Please select a valid priority'] }
+      })
+      expect(mockDb.insert).not.toHaveBeenCalled()
     })
 
     it('should return validation errors for missing userId', async () => {
       const invalidData = { ...validIssueData, userId: '' }
       const result = await createIssue(invalidData)
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { userId: ['User ID is required'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { userId: ['User ID is required'] }
+      })
+      expect(mockDb.insert).not.toHaveBeenCalled()
     })
 
     it('should handle database errors gracefully', async () => {
@@ -108,7 +137,11 @@ describe('issues actions', () => {
 
       const result = await createIssue(validIssueData)
 
-      expect(result).toEqual({ success: false, message: 'An error occurred while creating the issue', error: 'Failed to create issue' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while creating the issue',
+        error: 'Failed to create issue'
+      })
       expect(consoleSpy).toHaveBeenCalledWith('Error creating issue:', expect.any(Error))
       
       consoleSpy.mockRestore()
@@ -139,7 +172,11 @@ describe('issues actions', () => {
 
       const result = await updateIssue(999, { title: 'New Title' })
 
-      expect(result).toEqual({ success: false, message: 'Issue not found', error: 'Issue does not exist' })
+      expect(result).toEqual({
+        success: false,
+        message: 'Issue not found',
+        error: 'Issue does not exist'
+      })
       expect(mockDb.update).not.toHaveBeenCalled()
     })
 
@@ -149,14 +186,22 @@ describe('issues actions', () => {
 
       const result = await updateIssue(1, { title: 'Hacked Title' })
 
-      expect(result).toEqual({ success: false, message: 'You can only update your own issues', error: 'Forbidden' })
+      expect(result).toEqual({
+        success: false,
+        message: 'You can only update your own issues',
+        error: 'Forbidden'
+      })
       expect(mockDb.update).not.toHaveBeenCalled()
     })
 
     it('should return validation errors for invalid data', async () => {
       const result = await updateIssue(1, { title: 'ab' })
 
-      expect(result).toEqual({ success: false, message: 'Validation failed', errors: { title: ['Title must be at least 3 characters'] } })
+      expect(result).toEqual({
+        success: false,
+        message: 'Validation failed',
+        errors: { title: ['Title must be at least 3 characters'] }
+      })
     })
 
     it('should handle empty update data gracefully', async () => {
@@ -174,7 +219,11 @@ describe('issues actions', () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const result = await updateIssue(1, { title: 'Test' })
 
-      expect(result).toEqual({ success: false, message: 'An error occurred while updating the issue', error: 'Failed to update issue' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while updating the issue',
+        error: 'Failed to update issue'
+      })
       expect(consoleSpy).toHaveBeenCalledWith('Error updating issue:', expect.any(Error))
       consoleSpy.mockRestore()
     })
@@ -202,7 +251,11 @@ describe('issues actions', () => {
 
       const result = await deleteIssue(999)
 
-      expect(result).toEqual({ success: false, message: 'Issue not found', error: 'Issue does not exist' })
+      expect(result).toEqual({
+        success: false,
+        message: 'Issue not found',
+        error: 'Issue does not exist'
+      })
       expect(mockDb.delete).not.toHaveBeenCalled()
     })
 
@@ -212,7 +265,11 @@ describe('issues actions', () => {
 
       const result = await deleteIssue(1)
 
-      expect(result).toEqual({ success: false, message: 'You can only delete your own issues', error: 'Forbidden' })
+      expect(result).toEqual({
+        success: false,
+        message: 'You can only delete your own issues',
+        error: 'Forbidden'
+      })
       expect(mockDb.delete).not.toHaveBeenCalled()
     })
 
@@ -222,7 +279,11 @@ describe('issues actions', () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const result = await deleteIssue(1)
 
-      expect(result).toEqual({ success: false, message: 'An error occurred while deleting the issue', error: 'Failed to delete issue' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while deleting the issue',
+        error: 'Failed to delete issue'
+      })
       expect(consoleSpy).toHaveBeenCalledWith('Error deleting issue:', expect.any(Error))
       consoleSpy.mockRestore()
     })
@@ -236,7 +297,11 @@ describe('issues actions', () => {
   
       const result = await createIssue(validIssueData)
   
-      expect(result).toEqual({ success: false, message: 'An error occurred while creating the issue', error: 'Failed to create issue' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while creating the issue',
+        error: 'Failed to create issue'
+      })
       expect(consoleSpy).toHaveBeenCalledWith('Error creating issue:', expect.any(Error))
       expect(mockDb.insert).not.toHaveBeenCalled()
       expect(mockRevalidateTag).not.toHaveBeenCalled()
@@ -250,7 +315,11 @@ describe('issues actions', () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const result = await updateIssue(1, { title: 'Updated' })
   
-      expect(result).toEqual({ success: false, message: 'An error occurred while updating the issue', error: 'Failed to update issue' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while updating the issue',
+        error: 'Failed to update issue'
+      })
       expect(consoleSpy).toHaveBeenCalledWith('Error updating issue:', expect.any(Error))
       expect(mockDb.select).not.toHaveBeenCalled()
       expect(mockDb.update).not.toHaveBeenCalled()
@@ -265,7 +334,11 @@ describe('issues actions', () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const result = await deleteIssue(1)
   
-      expect(result).toEqual({ success: false, message: 'An error occurred while deleting the issue', error: 'Failed to delete issue' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while deleting the issue',
+        error: 'Failed to delete issue'
+      })
       expect(consoleSpy).toHaveBeenCalledWith('Error deleting issue:', expect.any(Error))
       expect(mockDb.select).not.toHaveBeenCalled()
       expect(mockDb.delete).not.toHaveBeenCalled()
@@ -280,7 +353,11 @@ describe('issues actions', () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
       const result = await createIssue(validIssueData)
   
-      expect(result).toEqual({ success: false, message: 'An error occurred while creating the issue', error: 'Failed to create issue' })
+      expect(result).toEqual({
+        success: false,
+        message: 'An error occurred while creating the issue',
+        error: 'Failed to create issue'
+      })
       expect(consoleSpy).toHaveBeenCalledWith('Error creating issue:', expect.any(Error))
       
       consoleSpy.mockRestore()
