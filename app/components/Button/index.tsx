@@ -27,7 +27,6 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
     disabled = false,
     fullWidth = false,
     href,
-    onKeyDown,
     ...props
   }, ref) => {
     const classNames = cn(
@@ -46,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonPr
       return <Link
         ref={ref as Ref<HTMLAnchorElement>}
         href={href} className={classNames}
-        onKeyDown={onKeyDown}
+        onKeyDown={props.onKeyDown}
       >{content}</Link>
     }
     
