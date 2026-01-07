@@ -5,7 +5,7 @@ import { Footer, FooterProps } from '../index'
 vi.mock('../components/TimeStamp', () => ({ TimeStamp: () => '2026' }))
 
 describe('Footer', () => {
-  const renderComponent = (props: any = {}) => render(<Footer {...props}>{props.children}</Footer>)
+  const renderComponent = (props: Partial<FooterProps> = {}) => render(<Footer {...props} />)
 
   it('renders without crashing', () => {
     renderComponent()

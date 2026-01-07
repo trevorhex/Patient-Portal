@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { createRef } from 'react'
-import { Card } from '../index'
+import { Card, CardProps } from '../index'
 
 describe('Card', () => {
-  const renderComponent = (props: any = {}) => render(<Card {...props}>{props.children ?? 'Mock Card'}</Card>)
+  const renderComponent = (props: Partial<CardProps> = {}) => render(<Card {...props}>{props.children ?? 'Mock Card'}</Card>)
 
   describe('rendering', () => {
     it('renders children correctly', () => {
@@ -55,7 +55,7 @@ describe('Card', () => {
   describe('ref forwarding', () => {
     it('forwards ref correctly', () => {
       const ref = createRef<HTMLDivElement>()
-      renderComponent({ ref, children: 'Content' })
+      renderComponent({ ref, children: 'Content' } as any)
       
       expect(ref.current).toBeInstanceOf(HTMLDivElement)
       expect(ref.current).toHaveTextContent('Content')
