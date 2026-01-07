@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { Button } from '../index'
+import { Button, ButtonProps } from '../index'
 import { baseStyles, variants, sizes } from '../styles'
 
 vi.mock('../components/LoadingWheel', () => ({
@@ -8,7 +8,7 @@ vi.mock('../components/LoadingWheel', () => ({
 }))
 
 describe('Button', () => {
-  const renderComponent = (props: any = {}) => render(<Button {...props}>{props.children ?? 'Mock Button'}</Button>)
+  const renderComponent = (props: Partial<ButtonProps> = {}) => render(<Button {...props}>{props.children ?? 'Mock Button'}</Button>)
 
   describe('basic rendering', () => {
     it('renders children correctly', () => {
@@ -37,7 +37,7 @@ describe('Button', () => {
 
     it('forwards ref correctly', () => {
       const ref = vi.fn()
-      renderComponent({ ref })
+      renderComponent({ ref } as any)
       expect(ref).toHaveBeenCalled()
     })
   })
@@ -170,7 +170,7 @@ describe('Button', () => {
 
     it('forwards ref correctly for link', () => {
       const ref = vi.fn()
-      renderComponent({ href: '/test', ref })
+      renderComponent({ href: '/test', ref } as any)
       expect(ref).toHaveBeenCalled()
     })
   })
@@ -224,7 +224,7 @@ describe('Button', () => {
         id: 'test-button',
         'data-testid': 'custom-button',
         'aria-label': 'Custom button'
-      })
+      } as any)
       
       const button = screen.getByRole('button')
       expect(button).toHaveAttribute('type', 'submit')

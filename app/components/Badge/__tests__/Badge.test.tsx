@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
-import { Badge, BadgeVariant } from '../index'
+import { Badge, BadgeProps, BadgeVariant } from '../index'
 import { baseStyles, variants, statusVariants, priorityVariants } from '../styles'
 
 const mockStatus = [
@@ -20,7 +20,7 @@ const expectedClasses = (mockArray: Array<{ value: string, expectedClasses: stri
   mockArray.find(({ value }) => value === key)?.expectedClasses || []
 
 describe('Badge', () => {
-  const renderComponent = (props: any = {}) => render(<Badge {...props}>{props.children ?? 'Mock'}</Badge>)
+  const renderComponent = (props: Partial<BadgeProps> = {}) => render(<Badge {...props}>{props.children ?? 'Mock'}</Badge>)
 
   it('renders children correctly', () => {
     renderComponent()
@@ -106,7 +106,7 @@ describe('Badge', () => {
   })
 
   it('forwards HTML attributes to the span element', () => {
-    renderComponent({ 'data-testid': 'test-badge', id: 'badge-id', title: 'Badge title' })
+    renderComponent({ 'data-testid': 'test-badge', id: 'badge-id', title: 'Badge title' } as any)
     const badge = screen.getByTestId('test-badge')
     expect(badge).toHaveAttribute('id', 'badge-id')
     expect(badge).toHaveAttribute('title', 'Badge title')

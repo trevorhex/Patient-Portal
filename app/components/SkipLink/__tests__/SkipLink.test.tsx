@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { baseStyles, variants, sizes } from '../../Button/styles'
-import { SkipLink } from '../index'
+import { SkipLink, SkipLinkProps } from '../index'
 
 const defaultProps = {
   href: '#main-content',
@@ -9,7 +9,7 @@ const defaultProps = {
 }
 
 describe('SkipLink', () => {
-  const renderComponent = (props = {}) => render(<SkipLink {...defaultProps} {...props} />)
+  const renderComponent = (props: Partial<SkipLinkProps> = {}) => render(<SkipLink {...defaultProps} {...props} />)
 
   it('renders with required props', () => {
     renderComponent()
@@ -88,7 +88,7 @@ describe('SkipLink', () => {
   it('combines all variant and size combinations correctly', () => {
     Object.keys(variants).forEach(variant => {
       Object.keys(sizes).forEach(size => {
-        const { unmount } = renderComponent({ variant, size })
+        const { unmount } = renderComponent({ variant, size } as any)
         
         const link = screen.getByRole('link')
         expect(link).toHaveClass(...variants[variant as keyof typeof variants].split(' '))
