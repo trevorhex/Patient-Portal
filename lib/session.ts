@@ -82,7 +82,7 @@ export const createSession = async (userId: string) => {
       sameSite: 'lax',
     })
 
-    return true
+    return token
   } catch (e) {
     console.error('Error creating session:', e)
     return false

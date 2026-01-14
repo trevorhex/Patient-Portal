@@ -8,9 +8,9 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: 
     const { id } = await params
     const issue = await db.query.issues.findFirst({ where: eq(issues.id, parseInt(id)) })
 
-    return NextResponse.json({ data: issue })
+    return NextResponse.json({ success: true, data: issue }, { status: 200 })
   } catch (e) {
     console.error(e)
-    return NextResponse.json({ error: 'Not found' }, { status: 404 })
+    return NextResponse.json({ success: false, error: 'Not found' }, { status: 404 })
   }
 }

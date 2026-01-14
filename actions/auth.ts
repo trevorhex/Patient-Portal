@@ -40,6 +40,7 @@ export type SignUpData = z.infer<typeof SignUpSchema>
 export type ActionResponse = {
   success: boolean
   message: string
+  token?: string
   errors?: Record<string, string[]>
   error?: string
 }
@@ -65,9 +66,7 @@ export const logIn = async (formData: FormData): Promise<ActionResponse> => {
       return {
         success: false,
         message: 'Invalid email or password',
-        errors: {
-          email: ['Invalid email or password']
-        }
+        errors: { email: ['Invalid email or password'] }
       }
     }
 
@@ -76,17 +75,24 @@ export const logIn = async (formData: FormData): Promise<ActionResponse> => {
       return {
         success: false,
         message: 'Invalid email or password',
-        errors: {
-          password: ['Invalid email or password']
-        }
+        errors: { password: ['Invalid email or password'] }
       }
     }
 
-    await createSession(user.id)
+    const token = await createSession(user.id)
+
+    if (!token) {
+      return {
+        success: false,
+        message: 'Failed to create session',
+        error: 'Failed to sign in'
+      }
+    }
 
     return {
       success: true,
-      message: 'Signed in successfully'
+      message: 'Signed in successfully',
+      token
     }
   } catch (e) {
     console.error('Sign in error:', e)
@@ -120,9 +126,7 @@ export const signUp = async (formData: FormData): Promise<ActionResponse> => {
       return {
         success: false,
         message: 'User with this email already exists',
-        errors: {
-          email: ['User with this email already exists']
-        }
+        errors: { email: ['User with this email already exists'] }
       }
     }
 
@@ -135,11 +139,20 @@ export const signUp = async (formData: FormData): Promise<ActionResponse> => {
       }
     }
 
-    await createSession(user.id)
+    const token = await createSession(user.id)
+
+    if (!token) {
+      return {
+        success: false,
+        message: 'Failed to create session',
+        error: 'Failed to sign in'
+      }
+    }
 
     return {
       success: true,
-      message: 'Account created successfully'
+      message: 'Account created successfully',
+      token
     }
   } catch (e) {
     console.error('Sign up error:', e)
