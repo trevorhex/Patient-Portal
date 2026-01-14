@@ -55,6 +55,29 @@ export const verifyJWT = async (token: string): Promise<JWTPayload | null> => {
   }
 }
 
+export const verifyAuthToken = async (authHeader: string): Promise<JWTPayload | null> => {
+  try {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) return null
+
+    return await verifyJWT(authHeader.substring(7))
+  } catch (e) {
+    console.error('Auth token verification failed:', e)
+    return null
+  }
+}
+
+export const refreshAuthToken = async (token: string): Promise<string | null> => {
+  try {
+    const payload = await verifyJWT(token)
+    if (!payload) return null
+
+    return await generateJWT({ userId: payload.userId })
+  } catch (e) {
+    console.error('Token refresh failed:', e)
+    return null
+  }
+}
+
 export const shouldRefreshToken = async (token: string): Promise<boolean> => {
   try {
     const { payload } = await jose.jwtVerify(token, JWT_SECRET, { clockTolerance: 15 })
