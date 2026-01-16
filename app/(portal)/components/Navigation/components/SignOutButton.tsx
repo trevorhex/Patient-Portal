@@ -1,9 +1,11 @@
 'use client'
 
+import { redirect } from 'next/navigation'
 import { LogOutIcon } from 'lucide-react'
 import { useTransition } from 'react'
 import { Button } from '@headlessui/react'
 import { logOut } from '@/actions/auth'
+import { ROUTES } from '@/config/routes'
 
 export const SignOutButton = () => {
   const [isPending, startTransition] = useTransition()
@@ -11,6 +13,7 @@ export const SignOutButton = () => {
   const handleSignOut = () => {
     startTransition(async () => {
       await logOut()
+      redirect(ROUTES.auth.login.href)
     })
   }
 

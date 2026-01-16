@@ -5,7 +5,7 @@ import { ROUTES } from '@/config/routes'
 export const proxy = async (req: NextRequest) => {
   const authHeader = req.headers.get('authorization')
   const { pathname } = req.nextUrl
-  const isProtectedRoute = config.matcher.some(route => pathname.startsWith(route))
+  const isProtectedRoute = config.matcher.some(route => pathname.startsWith(route.replace('/:path*', '')))
 
   if (!isProtectedRoute) return NextResponse.next()
 
@@ -41,7 +41,8 @@ const apiProxy = async (authHeader: string | null) => {
   )
 
   const token = authHeader.substring(7)
-  if (await shouldRefreshToken(token)) {
+  const shouldRefresh = await shouldRefreshToken(token)
+  if (shouldRefresh) {
     const response = NextResponse.next()
     response.headers.set('X-Token-Refresh-Suggested', 'true')
     return response
@@ -52,7 +53,7 @@ const apiProxy = async (authHeader: string | null) => {
 
 export const config = {
   matcher: [
-    '/api/:path*',
+    '/api/issue/:path*',
     '/dashboard/:path*',
     '/issues/:path*',
     '/profile/:path*',

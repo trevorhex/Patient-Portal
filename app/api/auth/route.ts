@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { logIn, signUp, logOut } from '@/actions/auth'
-import { verifyAuthToken, refreshAuthToken } from '@/lib/session'
+import { refreshAuthToken } from '@/lib/session'
 
 /*
 * POST /api/auth
-* Handle login/signup
+* Handle login/signup/refresh
 */
 export async function POST(req: NextRequest) {
   try {
@@ -81,43 +81,6 @@ export async function DELETE() {
     }, { status: 200 })
   } catch (error) {
     console.error('API logout error:', error)
-    return NextResponse.json({
-      success: false,
-      message: 'Failed to logout'
-    }, { status: 500 })
-  }
-}
-
-/*
-* GET /api/auth
-* Get current user authentication status
-*/
-export async function GET(req: NextRequest) {
-  try {
-    const authHeader = req.headers.get('authorization')
-    
-    if (!authHeader) {
-      return NextResponse.json({
-        success: false,
-        message: 'No token provided'
-      }, { status: 401 })
-    }
-
-    const payload = await verifyAuthToken(authHeader)
-    
-    if (!payload) {
-      return NextResponse.json({
-        success: false,
-        message: 'Invalid token'
-      }, { status: 401 })
-    }
-
-    return NextResponse.json({
-      success: true,
-      userId: payload.userId
-    }, { status: 200 })
-  } catch (error) {
-    console.error('API auth check error:', error)
     return NextResponse.json({
       success: false,
       message: 'Application Error'
