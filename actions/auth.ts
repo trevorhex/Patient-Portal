@@ -1,11 +1,9 @@
 'use server'
 
-import { redirect } from 'next/navigation'
 import { revalidateTag } from 'next/cache'
 import { z } from 'zod'
 import { verifyPassword, createSession, createUser, deleteSession } from '@/lib/session'
 import { getAuthenticatedUser, getUserByEmail, USER_BY_ID_CACHE_TAG } from '@/dal/user'
-import { ROUTES } from '@/config/routes'
 
 const LogInSchema = z.object({
   email: z.string()
@@ -21,17 +19,7 @@ const SignUpSchema = z
       .min(1, 'Email is required')
       .email('Invalid email format'),
     password: z.string()
-      .min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z.string()
-      .min(1, 'Please confirm your password')
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'Passwords don\'t match',
-    path: ['password']
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'Passwords don\'t match',
-    path: ['confirmPassword']
+      .min(6, 'Password must be at least 6 characters')
   })
 
 export type LogInData = z.infer<typeof LogInSchema>
@@ -66,7 +54,10 @@ export const logIn = async (formData: FormData): Promise<ActionResponse> => {
       return {
         success: false,
         message: 'Invalid email or password',
-        errors: { email: ['Invalid email or password'] }
+        errors: {
+          email: ['Invalid email or password'],
+          password: ['Invalid email or password']
+        }
       }
     }
 
@@ -75,7 +66,10 @@ export const logIn = async (formData: FormData): Promise<ActionResponse> => {
       return {
         success: false,
         message: 'Invalid email or password',
-        errors: { password: ['Invalid email or password'] }
+        errors: {
+          email: ['Invalid email or password'],
+          password: ['Invalid email or password']
+        }
       }
     }
 
@@ -108,8 +102,7 @@ export const signUp = async (formData: FormData): Promise<ActionResponse> => {
   try {
     const data = {
       email: formData.get('email') as string,
-      password: formData.get('password') as string,
-      confirmPassword: formData.get('confirmPassword') as string
+      password: formData.get('password') as string
     }
 
     const validationResult = SignUpSchema.safeParse(data)
@@ -173,6 +166,5 @@ export const logOut = async (): Promise<void> => {
     throw new Error('Failed to sign out')
   } finally {
     revalidateTag(`${USER_BY_ID_CACHE_TAG}${user?.id}`, 'max')
-    redirect(ROUTES.auth.login.href)
   }
 }
