@@ -39,7 +39,7 @@ export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
     const user = await getAuthenticatedUser()
     if (!user) throw new Error('Must be logged in')
 
-    const validationResult = IssueSchema.safeParse(data)
+    const validationResult = IssueSchema.safeParse({...data, userId: user.id })
     if (!validationResult.success) {
       return {
         success: false,
@@ -48,14 +48,7 @@ export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
       }
     }
 
-    const validatedData = validationResult.data
-    await db.insert(issues).values({
-      title: validatedData.title,
-      description: validatedData.description ?? null,
-      status: validatedData.status,
-      priority: validatedData.priority,
-      userId: validatedData.userId
-    })
+    await db.insert(issues).values(validationResult.data)
 
     revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user?.id}`, 'max')
 
@@ -76,7 +69,7 @@ export const updateIssue = async (id: number, data: Partial<IssueData>): Promise
     if (!user) throw new Error('Must be logged in')
 
     const IssueSchemaPartial = IssueSchema.partial()
-    const validationResult = IssueSchemaPartial.safeParse(data)
+    const validationResult = IssueSchemaPartial.safeParse({...data, userId: user.id })
 
     if (!validationResult.success) {
       return {
