@@ -4,6 +4,10 @@ import { issues } from '@/db/schema'
 import { NextRequest, NextResponse } from 'next/server'
 import { getAuthenticatedUser } from '@/dal/user'
 
+/*
+* GET /api/issues
+* Get authenticated user's issues
+*/
 export const GET = async () => {
   try {
     const user = await getAuthenticatedUser()
@@ -18,6 +22,10 @@ export const GET = async () => {
   }
 }
 
+/*
+* POST /api/issues
+* Handle creating new issue
+*/
 export const POST = async (req: NextRequest) => {
   try {
     const user = await getAuthenticatedUser()
