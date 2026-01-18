@@ -21,6 +21,8 @@ export const GET = async () => {
 export const POST = async (req: NextRequest) => {
   try {
     const user = await getAuthenticatedUser()
+    if (!user) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
+
     const values = await req.json()
     const [newIssue] = await db.insert(issues).values({ userId: user?.id, ...values }).returning()
 
