@@ -1,8 +1,6 @@
-import { db } from '@/db'
-import { issues } from '@/db/schema'
-import { eq } from 'drizzle-orm'
 import { NextRequest, NextResponse } from 'next/server'
-import { getAuthenticatedUser } from '@/dal/user'
+import { getIssue } from '@/dal/issue'
+import { updateIssue, deleteIssue } from '@/actions/issues'
 
 /*
 * GET /api/issues/[id]
@@ -10,11 +8,12 @@ import { getAuthenticatedUser } from '@/dal/user'
 */
 export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
   try {
-    const user = await getAuthenticatedUser()
-    if (!user) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
-
     const { id } = await params
-    const issue = await db.query.issues.findFirst({ where: eq(issues.id, parseInt(id)) && eq(issues.userId, user.id) })
+    const issueId = parseInt(id)
+    
+    if (isNaN(issueId)) return NextResponse.json({ success: false, error: 'Invalid issue ID' }, { status: 400 })
+
+    const issue = await getIssue(issueId)
 
     if (!issue) return NextResponse.json({ success: false, error: 'Issue not found' }, { status: 404 })
 
@@ -31,24 +30,22 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: 
 */
 export const PUT = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
   try {
-    const user = await getAuthenticatedUser()
-    if (!user) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
-
     const { id } = await params
-    const values = await req.json()
-    const { ...updateData } = values
+    const issueId = parseInt(id)
+    
+    if (isNaN(issueId)) return NextResponse.json({ success: false, error: 'Invalid issue ID' }, { status: 400 })
 
-    if (!id) return NextResponse.json({ success: false, error: 'Issue ID is required' }, { status: 400 })
+    const updateData = await req.json()
+    const result = await updateIssue(issueId, updateData)
 
-    const [updatedIssue] = await db
-      .update(issues)
-      .set(updateData)
-      .where(eq(issues.id, parseInt(id)) && eq(issues.userId, user.id))
-      .returning()
+    if (!result.success) {
+      const status = result.error
+        ? { 'Forbidden': 403, 'Issue does not exist': 404 }[result.error] ?? 400
+        : 400
+      return NextResponse.json(result, { status })
+    }
 
-    if (!updatedIssue) return NextResponse.json({ success: false, error: 'Issue not found' }, { status: 404 })
-
-    return NextResponse.json({ success: true, data: updatedIssue }, { status: 200 })
+    return NextResponse.json(result, { status: 200 })
   } catch (e) {
     console.error(e)
     return NextResponse.json({ success: false, error: 'Application Error' }, { status: 500 })
@@ -61,21 +58,21 @@ export const PUT = async (req: NextRequest, { params }: { params: Promise<{ id: 
 */
 export const DELETE = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
   try {
-    const user = await getAuthenticatedUser()
-    if (!user) return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 })
-
     const { id } = await params
+    const issueId = parseInt(id)
     
-    if (!id) return NextResponse.json({ success: false, error: 'Issue ID is required' }, { status: 400 })
+    if (isNaN(issueId)) return NextResponse.json({ success: false, error: 'Invalid issue ID' }, { status: 400 })
 
-    const [deletedIssue] = await db
-      .delete(issues)
-      .where(eq(issues.id, parseInt(id)) && eq(issues.userId, user.id))
-      .returning()
+    const result = await deleteIssue(issueId)
 
-    if (!deletedIssue) return NextResponse.json({ success: false, error: 'Issue not found' }, { status: 404 })
+    if (!result.success) {
+      const status = result.error
+        ? { 'Forbidden': 403, 'Issue does not exist': 404 }[result.error] ?? 400
+        : 400
+      return NextResponse.json(result, { status })
+    }
 
-    return NextResponse.json({ success: true, data: deletedIssue }, { status: 200 })
+    return NextResponse.json(result, { status: 200 })
   } catch (e) {
     console.error(e)
     return NextResponse.json({ success: false, error: 'Application Error' }, { status: 500 })
