@@ -53,7 +53,7 @@ const apiProxy = async (authHeader: string | null) => {
 
 export const config = {
   matcher: [
-    '/api/issue/:path*',
+    '/api/issues/:path*',
     '/dashboard/:path*',
     '/issues/:path*',
     '/profile/:path*',
