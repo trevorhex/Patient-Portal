@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
 import { issues } from '@/db/schema'
-import { issueStatus, issuePriority } from '@/db/types'
+import { Issue, issueStatus, issuePriority } from '@/db/types'
 import { ISSUES_BY_USER_ID_CACHE_TAG, USER_ISSUE_BY_ID_CACHE_TAG } from '@/dal/issue'
 import { getAuthenticatedUser } from '@/dal/user'
 import { ROUTES } from '@/config/routes'
@@ -30,6 +30,7 @@ export type IssueData = z.infer<typeof IssueSchema>
 export type ActionResponse = {
   success: boolean
   message: string
+  issue?: Issue
   errors?: Record<string, string[]>
   error?: string
 }
@@ -48,11 +49,11 @@ export const createIssue = async (data: IssueData): Promise<ActionResponse> => {
       }
     }
 
-    await db.insert(issues).values(validationResult.data)
+    const [issue] = await db.insert(issues).values(validationResult.data).returning()
 
     revalidateTag(`${ISSUES_BY_USER_ID_CACHE_TAG}${user?.id}`, 'max')
 
-    return { success: true, message: 'Issue created successfully' }
+    return { success: true, issue, message: 'Issue created successfully' }
   } catch (e) {
     console.error('Error creating issue:', e)
     return {
