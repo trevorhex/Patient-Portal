@@ -17,10 +17,10 @@ export const GET = async (req: NextRequest, { params }: { params: Promise<{ id: 
 
     if (!issue) return NextResponse.json({ success: false, error: 'Issue not found' }, { status: 404 })
 
-    return NextResponse.json({ success: true, data: issue }, { status: 200 })
+    return NextResponse.json({ issue }, { status: 200 })
   } catch (e) {
     console.error(e)
-    return NextResponse.json({ success: false, error: 'Application Error' }, { status: 500 })
+    return NextResponse.json({ error: 'Application Error' }, { status: 500 })
   }
 }
 
@@ -45,7 +45,9 @@ export const PUT = async (req: NextRequest, { params }: { params: Promise<{ id: 
       return NextResponse.json(result, { status })
     }
 
-    return NextResponse.json(result, { status: 200 })
+    const issue = await getIssue(issueId)
+
+    return NextResponse.json({ issue }, { status: 200 })
   } catch (e) {
     console.error(e)
     return NextResponse.json({ success: false, error: 'Application Error' }, { status: 500 })
@@ -72,7 +74,7 @@ export const DELETE = async (req: NextRequest, { params }: { params: Promise<{ i
       return NextResponse.json(result, { status })
     }
 
-    return NextResponse.json(result, { status: 200 })
+    return NextResponse.json({ id }, { status: 200 })
   } catch (e) {
     console.error(e)
     return NextResponse.json({ success: false, error: 'Application Error' }, { status: 500 })
