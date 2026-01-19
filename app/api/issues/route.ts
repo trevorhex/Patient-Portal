@@ -28,7 +28,7 @@ export const POST = async (req: NextRequest) => {
 
     if (!result.success) return NextResponse.json(result, { status: 400 })
 
-    return NextResponse.json({ issue: result.issue }, { status: 201 })
+    return NextResponse.json({ success: true, issue: result.issue }, { status: 201 })
   } catch (e) {
     console.error(e)
     return NextResponse.json({ success: false, error: 'Application Error' }, { status: 500 })

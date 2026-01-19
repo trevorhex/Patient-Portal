@@ -47,7 +47,7 @@ export const PUT = async (req: NextRequest, { params }: { params: Promise<{ id: 
 
     const issue = await getIssue(issueId)
 
-    return NextResponse.json({ issue }, { status: 200 })
+    return NextResponse.json({ success: true, issue }, { status: 200 })
   } catch (e) {
     console.error(e)
     return NextResponse.json({ success: false, error: 'Application Error' }, { status: 500 })
@@ -74,7 +74,7 @@ export const DELETE = async (req: NextRequest, { params }: { params: Promise<{ i
       return NextResponse.json(result, { status })
     }
 
-    return NextResponse.json({ id }, { status: 200 })
+    return NextResponse.json({ success: true, issue: { id } }, { status: 200 })
   } catch (e) {
     console.error(e)
     return NextResponse.json({ success: false, error: 'Application Error' }, { status: 500 })
