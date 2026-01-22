@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 const PREFERS_QUERY =  '(prefers-reduced-motion: reduce)'
 
 export const useReducedMotion = () => {
-	const [prefersReducedMotion, setPrefersReducedMotion] = useState(true)
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
 	useEffect(() => {
 		const mediaQueryList = window.matchMedia(PREFERS_QUERY)
