@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { ROUTES } from '@/config/routes'
-import { AuthButtons } from './AuthButtons'
+import { AuthButtons } from '../AuthButtons'
+import { HeaderAnimation } from './HeaderAnimation'
+import { ANIMATE_ID } from './HeaderAnimation'
 
 export const Header = () => (
-  <header className="border-b border-zinc-800">
+  <header className="border-b border-zinc-800" data-animate={ANIMATE_ID}>
     <div className="container mx-auto flex h-16 items-center justify-between px-4">
       <div className="flex items-center gap-8">
         <Link href="/" className="text-xl font-bold">
@@ -23,5 +25,6 @@ export const Header = () => (
         <AuthButtons />
       </div>
     </div>
+    <HeaderAnimation />
   </header>
 )

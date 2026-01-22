@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { ROUTES } from '@/config/routes'
-import { Header } from '../Header'
+import { Header } from '../index'
 
 vi.mock('../AuthButtons', () => ({ AuthButtons: () => <div data-testid="auth-buttons" /> }))
 
